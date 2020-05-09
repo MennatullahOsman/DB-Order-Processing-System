@@ -3,6 +3,7 @@ package application;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnector {
@@ -12,8 +13,27 @@ public class DBConnector {
     private static final String DATABASE_USERNAME = "root";
     private static final String DATABASE_PASSWORD = "root";
     private static final String INSERT_QUERY = "INSERT INTO registration (userName, password, firstName, lastName, email, phone, shippingadd) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_QUERY = "SELECT * FROM registration WHERE username = ? and password = ?";
+    private static final String VALIDATE_QUERY = "SELECT * FROM registration WHERE username = ?";
+    /// CHECK IF USER NAME IS ALREADY EXIST OR NOT BEFORE INSERTION.
+    public boolean existusername(String username) {
+    	try (Connection connection = DriverManager
+                .getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 
-
+                PreparedStatement preparedStatement = connection.prepareStatement(VALIDATE_QUERY)) {
+                preparedStatement.setString(1, username);
+                System.out.println(preparedStatement);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                /// CHANGE CONDITION TO COUNT IF NOT 0 THEN TRUE ELSE THEN FALSE.
+                if (resultSet.next()) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+            return false;
+    }
+    /// INSERT DATA OF THE NEW USER
     public void insertRecord(String userName,String password,String firstName,String lastName,String email,String phone,String shippingadd) throws SQLException {
 
         // Step 1: Establishing a Connection and 
@@ -39,7 +59,28 @@ public class DBConnector {
             printSQLException(e);
         }
     }
+    /// CHECK IF USERNAME AND PASSWORD FOR THE USER ARE VALID OR NOT.
+    public boolean validate(String username, String password) throws SQLException {
 
+        try (Connection connection = DriverManager
+            .getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
+            System.out.println(preparedStatement);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return false;
+    }
+    
     public static void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {
