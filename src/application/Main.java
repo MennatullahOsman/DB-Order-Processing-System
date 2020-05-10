@@ -26,7 +26,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
     	System.out.println(getClass());
     	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("MainPage.fxml"));
+    	loader.setLocation(getClass().getResource("Registration.fxml"));
     	Parent root = (Parent) loader.load();
 //    	Parent root = FXMLLoader.load(getClass().getResource("Registration.fxml"));
         stage.setTitle("User Login");
