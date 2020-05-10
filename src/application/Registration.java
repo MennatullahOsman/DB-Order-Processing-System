@@ -10,14 +10,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
 
 public class Registration {
-	
-	@FXML
-	private Text userError;
-	
 	@FXML
     private TextField firstname;
 
@@ -50,112 +48,102 @@ public class Registration {
 
     @FXML
     private TextField shippingadd;
+    
+    @FXML
+    private Text userErrorLogin;
+
+    @FXML
+    private Text PassErrorLogin;
+
+    @FXML
+    private Text userErrorSignup;
+
+    @FXML
+    private Text firstErrorSignup;
+
+    @FXML
+    private Text secondErrorSignup;
+
+    @FXML
+    private Text PassErrorSignup;
+
+    @FXML
+    private Text addressErrorSignup;
+
+    @FXML
+    private Text emailErrorSignup;
+
+    @FXML
+    private Text phoneErrorSignup;
 
     @FXML
     public void reg(ActionEvent event) throws SQLException {
 
         Window owner = signup.getScene().getWindow();
-        /// ERROR IF IT LEFT EMPTY
         if (usernameup.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter your username");
-            return;
+        	userErrorSignup.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY OR CONTAINS A NUMBER
         if (firstname.getText().isEmpty() || firstname.getText().matches(".*\\d.*")) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter your first name");
-            return;
+            firstErrorSignup.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY OR CONTAINS A NUMBER
         if (lastname.getText().isEmpty() || lastname.getText().matches(".*\\d.*")) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter your last name");
-            return;
+           secondErrorSignup.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY OR CONTAINS UN VALID EMAIL ADDRESS
         if (email.getText().isEmpty() || !validEmail(email.getText())) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter your email address");
-            return;
+            emailErrorSignup.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY OR CONTAINS NON NUMERIC VALUE
         if (phone.getText().isEmpty() || !isNumeric(phone.getText())) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter a valid phone number");
-            return;
+            phoneErrorSignup.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY
         if (passwordup.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter a password");
-            return;
+        	PassErrorSignup.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY
         if (shippingadd.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter the shipping address");
-            return;
+            addressErrorSignup.setVisible(true);
         }
 
-        String firstName = firstname.getText();
-        String lastName = lastname.getText();
-        String userName = usernameup.getText();
-        String emailadd = email.getText();
-        String password = passwordup.getText();
-        String phonen = phone.getText();
-        String shippingadds = shippingadd.getText();
-        DBConnector DB = new DBConnector();
-        /// ERROR WHEN TRY TO ENTER ALREADY EXISTING USERNAME
-        if (DB.existusername(userName)) {
-        	showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter another username as this user name already exist!");
-                return;
-        } else {
-        	DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
-        	showAlert(Alert.AlertType.CONFIRMATION, owner, "Registration Successful!",
-                    "Welcome " + firstname.getText());
-        }
+//        String firstName = firstname.getText();
+//        String lastName = lastname.getText();
+//        String userName = usernameup.getText();
+//        String emailadd = email.getText();
+//        String password = passwordup.getText();
+//        String phonen = phone.getText();
+//        String shippingadds = shippingadd.getText();
+//        DBConnector DB = new DBConnector();
+//        /// ERROR WHEN TRY TO ENTER ALREADY EXISTING USERNAME
+//        if (DB.existusername(userName)) {
+//        	showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+//                    "Please enter another username as this user name already exist!");
+//                return;
+//        } else {
+//        	DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
+//        	showAlert(Alert.AlertType.CONFIRMATION, owner, "Registration Successful!",
+//                    "Welcome " + firstname.getText());
+//        }
     }
 
     @FXML
     public void login(ActionEvent event) throws SQLException {
-
-        Window owner = signin.getScene().getWindow();
-
-        System.out.println(usernamein.getText());
-        System.out.println(passwordin.getText());
-        /// ERROR IF IT LEFT EMPTY
+    	
         if (usernamein.getText().isEmpty()) {
-        	userError.setVisible(true);
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter your user name");
-            return;
+        	userErrorLogin.setVisible(true);
         }
-        /// ERROR IF IT LEFT EMPTY
         if (passwordin.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter a password");
-            return;
+        	PassErrorLogin.setVisible(true);
         }
 
         String username = usernamein.getText();
         String password = passwordin.getText();
 
-        DBConnector DB = new DBConnector();
-        boolean flag = DB.validate(username, password);
-
-        if (!flag) {
-            infoBox("Please enter correct User Name and Password", null, "Failed");
-        } else {
-            infoBox("Login Successful!", null, "Failed");
-            /// GO TO THE NEXT FRAME
-        }
-    }
-//    @FXML
-//    void testForUserName(ActionEvent event) {
-//    	userError.setVisible(false);
-//    }
+//        DBConnector DB = new DBConnector();
+//        boolean flag = DB.validate(username, password);
+//
+//        if (!flag) {
+//            infoBox("Please enter correct User Name and Password", null, "Failed");
+//        } else {
+//            infoBox("Login Successful!", null, "Failed");
+//        }
+    }   	
     public static void infoBox(String infoMessage, String headerText, String title) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setContentText(infoMessage);
@@ -192,4 +180,53 @@ public class Registration {
             return false; 
         return pat.matcher(email).matches(); 
     }
+ 
+   
+    @FXML
+    void TestAddressSignup(KeyEvent event) {
+    	addressErrorSignup.setVisible(false);
+    }
+
+    @FXML
+    void TestEmailSignup(KeyEvent event) {
+    	emailErrorSignup.setVisible(false);
+    }
+
+    @FXML
+    void TestFirstSignup(KeyEvent event) {
+    	firstErrorSignup.setVisible(false);
+    }
+
+    @FXML
+    void TestPassLogin(KeyEvent event) {
+    	PassErrorLogin.setVisible(false);
+
+    }
+
+    @FXML
+    void TestPassSignup(KeyEvent event) {
+    	PassErrorSignup.setVisible(false);
+    }
+
+    @FXML
+    void TestPhoneSignup(KeyEvent event) {
+    	phoneErrorSignup.setVisible(false);
+    }
+
+    @FXML
+    void TestSecondSignup(KeyEvent event) {
+    	secondErrorSignup.setVisible(false);
+    }
+
+    @FXML
+    void TestUserLogIn(KeyEvent event) {
+    	userErrorLogin.setVisible(false);
+    }
+
+    @FXML
+    void TestUserSignup(KeyEvent event) {
+    	userErrorSignup.setVisible(false);
+    }
+
+ 
 }
