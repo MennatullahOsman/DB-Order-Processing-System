@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="333.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Profile">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="595.0">
+         <children>
+            <Text layoutX="33.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile" wrappingWidth="123.63671875">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <TextField fx:id="shippingadd" layoutX="140.0" layoutY="189.0" />
+            <Label layoutX="25.0" layoutY="193.0" prefHeight="17.0" prefWidth="106.0" text="Shipping Address : " />
+            <TextField fx:id="phone" layoutX="405.0" layoutY="109.0" />
+            <Label layoutX="340.0" layoutY="113.0" text="Phone :" />
+            <Label layoutX="327.0" layoutY="75.0" text="Last Name : " />
+            <TextField fx:id="lastname" layoutX="405.0" layoutY="71.0" />
+            <PasswordField fx:id="oldpassword" layoutX="140.0" layoutY="228.0" />
+            <Label layoutX="37.0" layoutY="232.0" text="Old Password : " />
+            <TextField fx:id="email" layoutX="140.0" layoutY="109.0" />
+            <Label layoutX="43.0" layoutY="113.0" prefHeight="17.0" prefWidth="88.0" text="Email Address : " />
+            <TextField fx:id="firstname" layoutX="140.0" layoutY="71.0" />
+            <Label layoutX="53.0" layoutY="75.0" text="First Name : " />
+            <Text layoutX="55.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CC Numbe :" />
+            <TextField fx:id="cc" layoutX="140.0" layoutY="151.0" />
+            <Text layoutX="316.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiring date :" />
+            <TextField fx:id="edate" layoutX="405.0" layoutY="151.0" />
+            <Label layoutX="313.0" layoutY="232.0" text="New Password : " />
+            <PasswordField fx:id="newpassword" layoutX="405.0" layoutY="228.0" />
+            <Button fx:id="save" layoutX="276.0" layoutY="283.0" mnemonicParsing="false" onAction="#editData" text="SAVE" />
+            <Button fx:id="back" layoutX="502.0" layoutY="29.0" mnemonicParsing="false" onAction="#BACK" text="Back" />
+         </children></AnchorPane>
+  </content>
+</ScrollPane>
