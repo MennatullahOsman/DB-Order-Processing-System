@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/// EDIT IT TO BE SINGELTON
 public class DBConnector {
 
 	// Replace below database url, username and password with your actual database credentials
@@ -44,7 +45,7 @@ public class DBConnector {
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
             preparedStatement.setString(1, userName);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, "SHA(" + password +")");
             preparedStatement.setString(3, firstName);
             preparedStatement.setString(4, lastName);
             preparedStatement.setString(5, email);
@@ -72,6 +73,9 @@ public class DBConnector {
             System.out.println(preparedStatement);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            /// GET DATA FROM RESULT SET AND SAVE IT
+//            Profile p = new Profile();
+//            p.setData();
             if (resultSet.next()) {
                 return true;
             }
@@ -95,5 +99,8 @@ public class DBConnector {
                 }
             }
         }
+    }
+    public void editData(String firstname, String lastname,String email, String phone, String shippingadd, String cc, String edate) {
+    	/// edit
     }
 }

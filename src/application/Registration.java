@@ -14,8 +14,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Window;
 
 public class Registration {
-	  @FXML
+	
+	@FXML
 	private Text userError;
+	
 	@FXML
     private TextField firstname;
 
@@ -147,6 +149,7 @@ public class Registration {
             infoBox("Please enter correct User Name and Password", null, "Failed");
         } else {
             infoBox("Login Successful!", null, "Failed");
+            /// GO TO THE NEXT FRAME
         }
     }
 //    @FXML
