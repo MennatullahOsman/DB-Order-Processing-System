@@ -1,17 +1,18 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
-import javafx.stage.Stage;
+import java.util.Queue;
 
 public class PassValues {
+	
+	private static Queue<Integer> cartBooks = new LinkedList<Integer>();
 	private static String Title = "";
 	private static List<String> Authers = new ArrayList<String>();
 	private static String Publisher = "";
 	static int PublicationYear = 0;
 	static int SellingPrice = 0;
-    public Stage primaryStage;
 
 	public static void setTitle(String Title_set) {
 		Title = Title_set;
@@ -19,8 +20,8 @@ public class PassValues {
     public static String getTitele() {
 		return Title;
 	}
-	public static void setAuthers(List<String> Authers_set) {
-		Authers = Authers_set;
+	public static void setAuthers(String Auther) {
+		Authers.add(Auther);
 	}
     public static List<String> getAuthers() {
 		return Authers;
@@ -43,11 +44,11 @@ public class PassValues {
     public static int getSellingPrice() {
 		return SellingPrice;
 	}
-    public void setPrimaryStage(Stage stage) {
-    	primaryStage = stage;
-    }
-    public Stage getPrimaryStage() {
-    	return primaryStage;
-    }
-    
+  
+    public static void setCartBooks(int cartBooks_set) {
+    	cartBooks.add(cartBooks_set);
+	}
+    public static Queue<Integer> getCartBooks() {
+		return cartBooks;
+	}
 }
