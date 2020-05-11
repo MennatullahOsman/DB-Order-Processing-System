@@ -6,9 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/// EDIT IT TO BE SINGELTON
 public class DBConnector {
 
+    private static DBConnector single_instance = null; ;  
+    public static DBConnector getInstance() 
+    { 
+        if (single_instance == null) 
+            single_instance = new DBConnector(); 
+  
+        return single_instance; 
+    }
 	// Replace below database url, username and password with your actual database credentials
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/javafx_registration?useSSL=false";
     private static final String DATABASE_USERNAME = "root";
@@ -102,5 +109,23 @@ public class DBConnector {
     }
     public void editData(String firstname, String lastname,String email, String phone, String shippingadd, String cc, String edate) {
     	/// edit
+    }
+    
+    public void addBook(String isbn, String title,String pname, String pyear, String category, String price, String threashold, String authors) {
+    	/// to db 
+    }
+    
+    public boolean bookexist(String isbn) {
+		return false;
+    	/// db
+    }
+    
+    public void getbookdata(String isbn) {
+    	/// db 
+    	/// pass values to AddBookD
+    }
+    
+    public void modifybook(String isbn, String title,String pname, String pyear, String category, String price, String threashold, String authors) {
+    	/// db
     }
 }
