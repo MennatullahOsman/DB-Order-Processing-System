@@ -71,6 +71,7 @@ public class Profile extends Pane {
 		ccn = cc.getText();
 		ed = edate.getText();
 		// DB.editData(first, last, emailadd, phonenum, shipadd, ccn, ed);
+		mainPage.ParentPane.getChildren().remove(root);
 	}
 
 	void viewData() {

@@ -22,7 +22,6 @@ public class SearchBy extends Pane {
 		mainPage = main;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchBy.fxml"));
 		loader.setController(this);
-
 		try {
 			root = loader.load();
 		} catch (IOException exception) {
@@ -75,6 +74,7 @@ public class SearchBy extends Pane {
 			PassValues.setCategory(Category.getSelectionModel().getSelectedItem().toString());
 		}
 		mainPage.ParentPane.getChildren().remove(root);
+		PassValues.setWhichBtb("Add To Cart");
 		BookList bookList = new BookList(mainPage);
 	}
 

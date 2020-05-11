@@ -30,13 +30,13 @@ public class BookList {
 	private static final String DATABASE_USERNAME = "root";
 	private static final String DATABASE_PASSWORD = "Tiger";
 	private static final String SELECT_QUERY = "SELECT * FROM bo ";
-	private static List<String> Publishers = new ArrayList<String>();
-	private static List<String> Titles = new ArrayList<String>();
-	private static List<String> Categories = new ArrayList<String>();
-	private static List<Integer> Publication_year = new ArrayList<Integer>();
-	private static List<Integer> ISBN = new ArrayList<Integer>();
-	private static List<Integer> Selling_price = new ArrayList<Integer>();
-	private static List<ArrayList<String>> Authers = new ArrayList<ArrayList<String>>();
+	private static List<String> Publishers;
+	private static List<String> Titles;
+	private static List<String> Categories;
+	private static List<Integer> Publication_year;
+	private static List<Integer> ISBN;
+	private static List<Integer> Selling_price;
+	private static List<ArrayList<String>> Authers;
 	private static int counter = 0;
 	private Pane root;
 
@@ -49,6 +49,9 @@ public class BookList {
 			throw new RuntimeException(exception);
 		}
 		mainPage.ParentPane.getChildren().add(root);
+		if (PassValues.getWhichBtn().equals("Delete From Cart")) {
+			viewMyCart();
+		}
 		viewBooks(0);
 	}
 
@@ -94,113 +97,198 @@ public class BookList {
 		}
 	}
 
-	public void viewBooks(int counter) {
+	int RowViewer0(int counter) {
 		if (counter < ISBN.size()) {
 			Grid0.setVisible(true);
 			Line0.setVisible(true);
 			Label0.setText(Titles.get(counter));
+			Add0.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid0.setVisible(false);
 			Line0.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer1(int counter) {
 		if (counter < ISBN.size()) {
 			Grid1.setVisible(true);
 			Line1.setVisible(true);
 			Label1.setText(Titles.get(counter));
+			Add1.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid1.setVisible(false);
 			Line1.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer2(int counter) {
 		if (counter < ISBN.size()) {
 			Grid2.setVisible(true);
 			Line2.setVisible(true);
 			Label2.setText(Titles.get(counter));
+			Add2.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid2.setVisible(false);
 			Line2.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer3(int counter) {
 		if (counter < ISBN.size()) {
 			Grid3.setVisible(true);
 			Line3.setVisible(true);
 			Label3.setText(Titles.get(counter));
+			Add3.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid3.setVisible(false);
 			Line3.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer4(int counter) {
 		if (counter < ISBN.size()) {
 			Grid4.setVisible(true);
 			Line4.setVisible(true);
 			Label4.setText(Titles.get(counter));
+			Add4.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid4.setVisible(false);
 			Line4.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer5(int counter) {
 		if (counter < ISBN.size()) {
 			Grid5.setVisible(true);
 			Line5.setVisible(true);
 			Label5.setText(Titles.get(counter));
+			Add5.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid5.setVisible(false);
 			Line5.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer6(int counter) {
 		if (counter < ISBN.size()) {
 			Grid6.setVisible(true);
 			Line6.setVisible(true);
 			Label6.setText(Titles.get(counter));
+			Add6.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid6.setVisible(false);
 			Line6.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer7(int counter) {
 		if (counter < ISBN.size()) {
 			Grid7.setVisible(true);
 			Line7.setVisible(true);
 			Label7.setText(Titles.get(counter));
+			Add7.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid7.setVisible(false);
 			Line7.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer8(int counter) {
 		if (counter < ISBN.size()) {
 			Grid8.setVisible(true);
 			Line8.setVisible(true);
 			Label8.setText(Titles.get(counter));
+			Add8.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid8.setVisible(false);
 			Line8.setVisible(false);
 		}
+		return counter;
+	}
+
+	int RowViewer9(int counter) {
 		if (counter < ISBN.size()) {
 			Grid9.setVisible(true);
 			Line9.setVisible(true);
 			Label9.setText(Titles.get(counter));
+			Add9.setText(PassValues.getWhichBtn());
 			counter++;
 		} else {
 			Grid9.setVisible(false);
 			Line9.setVisible(false);
 		}
+		return counter;
+	}
+
+	public void viewBooks(int counter) {
+		counter = RowViewer0(counter);
+		counter = RowViewer1(counter);
+		counter = RowViewer2(counter);
+		counter = RowViewer3(counter);
+		counter = RowViewer4(counter);
+		counter = RowViewer5(counter);
+		counter = RowViewer6(counter);
+		counter = RowViewer7(counter);
+		counter = RowViewer8(counter);
+		counter = RowViewer9(counter);
+
 		if (ISBN.size() - counter != 0) {
 			Next.setDisable(false);
 		}
 	}
 
 	@FXML
-	void addAction(ActionEvent event) {
-
-		//
-		String n = ((Node) event.getSource()).getId();
+	void addRemoveAction(ActionEvent event) {
+		String IDBtn = ((Node) event.getSource()).getId();
 		String pattern = "(Add)(\\d+)";
-		Pattern r = Pattern.compile(pattern);
-		Matcher m = r.matcher(n);
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(IDBtn);
 		if (m.find()) {
-			PassValues.setCartBooks(ISBN.get(counter + Integer.parseInt(m.group(2))));
+			if (PassValues.getWhichBtn().equals("Add To Cart")) {
+				int index = counter + Integer.parseInt(m.group(2));
+				PassValues.setBookCartTitle(Titles.get(index), true);// true for add
+				PassValues.setBookCartPublisher(Publishers.get(index), true);
+				PassValues.setBookCartISBN(ISBN.get(index), true);
+				PassValues.setBookCartCategory(Categories.get(index), true);
+				PassValues.setBookCartPublicationYear(Publication_year.get(index), true);
+				PassValues.setBookCartSellingPrice(Selling_price.get(index), true);
+			} else {
+				int index = counter + Integer.parseInt(m.group(2));
+				PassValues.setBookCartTitle(Titles.get(index), false);// false for remove
+				PassValues.setBookCartPublisher(Publishers.get(index), false);
+				PassValues.setBookCartISBN(ISBN.get(index), false);
+				PassValues.setBookCartCategory(Categories.get(index), false);
+				PassValues.setBookCartPublicationYear(Publication_year.get(index), false);
+				PassValues.setBookCartSellingPrice(Selling_price.get(index), false);
+			}
 		}
+		viewBooks(counter);
+	}
+
+	private void viewMyCart() {
+		Publishers = PassValues.getBookCartPublisher();
+		Titles = PassValues.getBookCartTitele();
+		Categories = PassValues.getBookCartCategory();
+		Publication_year = PassValues.getBookCartPublicationYear();
+		ISBN = PassValues.getBookCartISBN();
+		Selling_price = PassValues.getBookCarttSellingPrice();
 	}
 
 	@FXML
@@ -227,6 +315,8 @@ public class BookList {
 			grid.add(new Label(Publication_year.get(index).toString()), 1, 3);
 			grid.add(new Label("Selling price:"), 0, 4);
 			grid.add(new Label(Selling_price.get(index).toString()), 1, 4);
+			grid.add(new Label("Category:"), 0, 5);
+			grid.add(new Label(Categories.get(index)), 1, 5);
 			dialog.getDialogPane().setContent(grid);
 			dialog.showAndWait();
 		}
@@ -243,6 +333,7 @@ public class BookList {
 				Titles.add(resultSet.getString("Title"));
 				Publishers.add(resultSet.getString("Publisher"));
 				Selling_price.add(resultSet.getInt("Price"));
+				Categories.add("math");
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -268,7 +359,13 @@ public class BookList {
 
 	@FXML
 	public void initialize() {
-
+		Publishers = new ArrayList<String>();
+		Titles = new ArrayList<String>();
+		Categories = new ArrayList<String>();
+		Publication_year = new ArrayList<Integer>();
+		ISBN = new ArrayList<Integer>();
+		Selling_price = new ArrayList<Integer>();
+		Authers = new ArrayList<ArrayList<String>>();
 		try {
 			validate();
 		} catch (SQLException e) {

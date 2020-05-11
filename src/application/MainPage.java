@@ -27,6 +27,8 @@ public class MainPage {
 	}
 
 	@FXML
+	private Button CheckOut;
+	@FXML
 	Pane ParentPane;
 	@FXML
 	public static Button Search;
@@ -37,7 +39,7 @@ public class MainPage {
 			ParentPane.getChildren().remove(0);
 		}
 		SearchBy searchby = new SearchBy(this);
-
+		CheckOut.setVisible(false);
 	}
 
 	@FXML
@@ -46,6 +48,8 @@ public class MainPage {
 			ParentPane.getChildren().remove(0);
 		}
 		Manager manager = new Manager(this);
+		CheckOut.setVisible(false);
+
 	}
 
 	@FXML
@@ -53,7 +57,15 @@ public class MainPage {
 		if (!ParentPane.getChildren().isEmpty()) {
 			ParentPane.getChildren().remove(0);
 		}
+		PassValues.setWhichBtb("Delete From Cart");
 		BookList bookList = new BookList(this);
+		CheckOut.setVisible(true);
+		if (PassValues.getBookCartISBN().isEmpty()) {
+			CheckOut.setDisable(true);
+		} else {
+			CheckOut.setDisable(false);
+		}
+
 	}
 
 	@FXML
@@ -62,6 +74,15 @@ public class MainPage {
 			ParentPane.getChildren().remove(0);
 		}
 		Profile profile = new Profile(this);
+		CheckOut.setVisible(false);
+
+	}
+
+	@FXML
+	void checkOutAction(ActionEvent event) throws IOException {
+		ParentPane.getChildren().remove(0);
+		PassValues.clearAll();
+		CheckOut.setVisible(false);
 	}
 
 	public void showStage() {
