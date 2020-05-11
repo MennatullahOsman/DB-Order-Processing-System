@@ -1,12 +1,30 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
-public class Profile {
+public class Profile extends Pane {
+	MainPage mainPage;
+	private Pane root;
+
+	public Profile(MainPage main) {
+		mainPage = main;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Profile.fxml"));
+		loader.setController(this);
+		try {
+			root = loader.load();
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+		main.ParentPane.getChildren().add(root);
+	}
 
 	@FXML
 	private TextField cc;
@@ -74,10 +92,5 @@ public class Profile {
 		shipadd = shippingadd;
 		ccn = cc;
 		ed = edate;
-	}
-
-	@FXML
-	void BACK(ActionEvent event) {
-		/// OPEN THE PREV FRAME.
 	}
 }

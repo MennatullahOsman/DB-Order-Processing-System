@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 
 public class SearchBy extends Pane {
 	MainPage mainPage;
-	Pane root;
+	private Pane root;
 
 	public SearchBy(MainPage main) {
 		mainPage = main;

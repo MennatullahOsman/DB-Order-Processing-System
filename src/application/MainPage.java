@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -34,32 +33,35 @@ public class MainPage {
 
 	@FXML
 	private void SearchAction(ActionEvent event) {
+		if (!ParentPane.getChildren().isEmpty()) {
+			ParentPane.getChildren().remove(0);
+		}
 		SearchBy searchby = new SearchBy(this);
+
 	}
 
 	@FXML
 	void ManageAction(ActionEvent event) throws IOException {
-		Parent sign = FXMLLoader.load(getClass().getResource("Manager.fxml"));
-		Scene signIn = new Scene(sign);
-		signIn.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		Stage window = new Stage();
-		window.setScene(signIn);
-		window.show();
+		if (!ParentPane.getChildren().isEmpty()) {
+			ParentPane.getChildren().remove(0);
+		}
+		Manager manager = new Manager(this);
 	}
 
 	@FXML
 	void MyCartAction(ActionEvent event) {
-
+		if (!ParentPane.getChildren().isEmpty()) {
+			ParentPane.getChildren().remove(0);
+		}
+		BookList bookList = new BookList(this);
 	}
 
 	@FXML
 	void editProfileAction(ActionEvent event) throws IOException {
-		Parent sign = FXMLLoader.load(getClass().getResource("Profile.fxml"));
-		Scene signIn = new Scene(sign);
-		signIn.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		Stage window = new Stage();
-		window.setScene(signIn);
-		window.show();
+		if (!ParentPane.getChildren().isEmpty()) {
+			ParentPane.getChildren().remove(0);
+		}
+		Profile profile = new Profile(this);
 	}
 
 	public void showStage() {
