@@ -57,6 +57,6 @@
             <Font size="25.0" />
          </font>
       </Text>
-      <Button fx:id="save" layoutX="266.0" layoutY="411.0" mnemonicParsing="false" onAction="#editData" prefHeight="26.0" prefWidth="181.0" text="SAVE" />
+      <Button fx:id="save" layoutX="266.0" layoutY="413.0" mnemonicParsing="false" onAction="#editData" prefHeight="26.0" prefWidth="181.0" text="SAVE" />
    </children>
 </AnchorPane>

@@ -72,4 +72,5 @@ public class MainPage {
 	public void initialize() {
 
 	}
+
 }

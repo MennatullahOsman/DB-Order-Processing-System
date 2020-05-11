@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
-
-
 /// NEED TO RUN THIS FIRST
 //add.setVisible(flag);
 //modify.setVisible(!flag);
@@ -66,16 +64,16 @@ public class AddBookD {
 	@FXML
 	private TextField category;
 
-	private String currentISBN = null,ctitle,cpname,cpyear,ccat,cthr,cprice,cauthors;
+	private String currentISBN = null, ctitle, cpname, cpyear, ccat, cthr, cprice, cauthors;
 	private boolean flag = false; // add true, modify false
-	
+
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
 
 	@FXML
 	void closedialog(ActionEvent event) {
-		/// close this frame 
+		/// close this frame
 	}
 
 	@FXML
@@ -95,7 +93,8 @@ public class AddBookD {
 			DBConnector db = DBConnector.getInstance();
 			if (db.bookexist(isbn.getText())) {
 				db.getbookdata(isbn.getText());
-				/// get data from pass data and put it in ctitle,cpname,cpyear,ccat,cthr,cprice,cauthors and text fields
+				/// get data from pass data and put it in
+				/// ctitle,cpname,cpyear,ccat,cthr,cprice,cauthors and text fields
 				currentISBN = isbn.getText();
 			} else {
 				/// error this book not found
@@ -108,13 +107,14 @@ public class AddBookD {
 		if (currentISBN == null) {
 			/// error please enter isbn and get data first
 		} else {
-			if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()|| pyear.getText().isEmpty()|| category.getText().isEmpty()||
-					price.getText().isEmpty()|| thershold.getText().isEmpty()|| authers.getText().isEmpty()) {
+			if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
+					|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
+					|| thershold.getText().isEmpty() || authers.getText().isEmpty()) {
 				/// error please enter missed data
 			} else {
 				DBConnector db = DBConnector.getInstance();
 				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-					price.getText(), thershold.getText(), authers.getText());
+						price.getText(), thershold.getText(), authers.getText());
 			}
 		}
 	}

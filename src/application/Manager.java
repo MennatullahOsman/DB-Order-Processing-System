@@ -35,6 +35,7 @@ public class Manager extends Pane {
 		AddBookD frame = new AddBookD();
 		frame.setFlag(false);
 		/// open frame as dialog
+
 	}
 
 	@FXML

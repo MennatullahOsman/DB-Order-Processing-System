@@ -34,7 +34,7 @@
             <Button mnemonicParsing="false" onAction="#promotion" text="Promot customers" GridPane.columnIndex="6" />
          </children>
       </GridPane>
-      <Label layoutX="21.0" layoutY="89.0" text="Current Orders :">
+      <Label layoutX="20.0" layoutY="96.0" text="Current Orders :">
          <font>
             <Font size="20.0" />
          </font>
