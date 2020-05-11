@@ -22,6 +22,7 @@ public class SearchBy extends Pane {
 		mainPage = main;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchBy.fxml"));
 		loader.setController(this);
+
 		try {
 			root = loader.load();
 		} catch (IOException exception) {
