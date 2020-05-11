@@ -128,4 +128,7 @@ public class DBConnector {
     public void modifybook(String isbn, String title,String pname, String pyear, String category, String price, String threashold, String authors) {
     	/// db
     }
+    public void addorder(String isbn, String quantity) {
+    	/// db
+    }
 }

@@ -23,32 +23,44 @@ public class Manager extends Pane {
 		main.ParentPane.getChildren().add(root);
 	}
 
+    @FXML
+    Pane mangpane;
+    
 	@FXML
 	void addnewbook(ActionEvent event) {
-		AddBookD frame = new AddBookD();
-		frame.setFlag(true);
-		/// open frame as dialog
+		if (!mangpane.getChildren().isEmpty()) {
+			mangpane.getChildren().remove(0);
+		}
+		AddBookD frame = new AddBookD(this);
+//		frame.setFlag(true);
+		frame.add.setVisible(true);
+		frame.modify.setVisible(false);
+		frame.getdata.setVisible(false);
 	}
 
 	@FXML
 	void modifyexistingbook(ActionEvent event) {
-		AddBookD frame = new AddBookD();
-		frame.setFlag(false);
 		/// open frame as dialog
-
+		if (!mangpane.getChildren().isEmpty()) {
+			mangpane.getChildren().remove(0);
+		}
+		AddBookD frame = new AddBookD(this);
+//		frame.setFlag(false);
+		frame.add.setVisible(false);
+		frame.modify.setVisible(true);
+		frame.getdata.setVisible(true);
 	}
 
 	@FXML
 	void placeneworder(ActionEvent event) {
-
+		if (!mangpane.getChildren().isEmpty()) {
+			mangpane.getChildren().remove(0);
+		}
+		Orders frame = new Orders(this);
 	}
 
 	@FXML
 	void promotion(ActionEvent event) {
-
-	}
-
-	void vieworders() {
 
 	}
 

@@ -1,23 +1,41 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
 /// NEED TO RUN THIS FIRST
 //add.setVisible(flag);
 //modify.setVisible(!flag);
 //getdata.setVisible(!flag);
 
-public class AddBookD {
+public class AddBookD extends Pane{
+	
+	Manager man;
+	private Pane root;
+	public AddBookD(Manager m) {
+		man = m;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookD.fxml"));
+		loader.setController(this);
+		try {
+			root = loader.load();
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+		man.mangpane.getChildren().add(root);
+	}
 
 	@FXML
 	private Button cancel;
 
 	@FXML
-	private Button add;
+	 Button add;
 
 	@FXML
 	private MenuItem art;
@@ -35,7 +53,7 @@ public class AddBookD {
 	private TextField title;
 
 	@FXML
-	private Button getdata;
+	 Button getdata;
 
 	@FXML
 	private TextField thershold;
@@ -50,7 +68,7 @@ public class AddBookD {
 	private MenuItem geo;
 
 	@FXML
-	private Button modify;
+	 Button modify;
 
 	@FXML
 	private MenuItem re;
@@ -79,6 +97,7 @@ public class AddBookD {
 	@FXML
 	void addnew(ActionEvent event) {
 		DBConnector db = DBConnector.getInstance();
+		/// check if all are entered first if not show error msg.
 		if (!db.bookexist(isbn.getText())) {
 			db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
 					price.getText(), thershold.getText(), authers.getText());
