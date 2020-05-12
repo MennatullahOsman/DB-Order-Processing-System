@@ -61,7 +61,10 @@ public class Manager extends Pane {
 
 	@FXML
 	void promotion(ActionEvent event) {
-
+		if (!mangpane.getChildren().isEmpty()) {
+			mangpane.getChildren().remove(0);
+		}
+		Users frame = new Users(this);
 	}
 
 	@FXML

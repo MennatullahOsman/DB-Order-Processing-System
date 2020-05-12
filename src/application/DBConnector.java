@@ -131,4 +131,12 @@ public class DBConnector {
     public void addorder(String isbn, String quantity) {
     	/// db
     }
+    public String getuserdata(String username) {
+    	/// db
+    	String data = " ";
+    	return data;
+    }
+    public void promote(String username) {
+    	/// db
+    }
 }
