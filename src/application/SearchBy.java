@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -59,20 +61,26 @@ public class SearchBy extends Pane {
 
 	@FXML
 	void okAction(ActionEvent event) {
-		PassValues.setTitle(Title.getText());
+		int Publication_year = 0;
+		double Selling_price = 0.0;
+		String Categories = "";
+		List<String> Auther = new ArrayList<String>();
 		for (String line : Authers.getText().split("\\n")) {
-			PassValues.setAuthers(line);
+			Auther.add(line);
 		}
 		PassValues.setPublisher(Publisher.getText());
 		if (!PublicationYear.getText().equals("")) {
-			PassValues.setPublicationYear(Integer.parseInt(PublicationYear.getText()));
+			Publication_year = Integer.parseInt(PublicationYear.getText());
 		}
 		if (!SellingPrice.getText().equals("")) {
-			PassValues.setSellingPrice(Integer.parseInt(SellingPrice.getText()));
+			Selling_price = Integer.parseInt(SellingPrice.getText());
 		}
 		if (!Category.getSelectionModel().isEmpty()) {
-			PassValues.setCategory(Category.getSelectionModel().getSelectedItem().toString());
+			Categories = Category.getSelectionModel().getSelectedItem().toString();
 		}
+		DBConnector db = new DBConnector();
+		db.bookSearch(Title.getText(), Publisher.getText(), Categories, Publication_year, Selling_price, Auther);
+
 		mainPage.ParentPane.getChildren().remove(root);
 		PassValues.setWhichBtb("Add To Cart");
 		BookList bookList = new BookList(mainPage);

@@ -1,11 +1,6 @@
 package application;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,16 +21,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class BookList {
-	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/books?useSSL=false";
-	private static final String DATABASE_USERNAME = "root";
-	private static final String DATABASE_PASSWORD = "Tiger";
-	private static final String SELECT_QUERY = "SELECT * FROM bo ";
 	private static List<String> Publishers;
 	private static List<String> Titles;
 	private static List<String> Categories;
 	private static List<Integer> Publication_year;
 	private static List<Integer> ISBN;
-	private static List<Integer> Selling_price;
+	private static List<Double> Selling_price;
 	private static List<ArrayList<String>> Authers;
 	private static int counter = 0;
 	private Pane root;
@@ -322,56 +313,15 @@ public class BookList {
 		}
 	}
 
-	public int validate() throws SQLException {
-		try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				ISBN.add(resultSet.getInt("id"));
-				Publication_year.add(resultSet.getInt("Publication_Day"));
-				Titles.add(resultSet.getString("Title"));
-				Publishers.add(resultSet.getString("Publisher"));
-				Selling_price.add(resultSet.getInt("Price"));
-				Categories.add("math");
-			}
-		} catch (SQLException e) {
-			printSQLException(e);
-		}
-		return 0;
-	}
-
-	public static void printSQLException(SQLException ex) {
-		for (Throwable e : ex) {
-			if (e instanceof SQLException) {
-				e.printStackTrace(System.err);
-				System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-				System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-				System.err.println("Message: " + e.getMessage());
-				Throwable t = ex.getCause();
-				while (t != null) {
-					System.out.println("Cause: " + t);
-					t = t.getCause();
-				}
-			}
-		}
-	}
-
 	@FXML
 	public void initialize() {
-		Publishers = new ArrayList<String>();
-		Titles = new ArrayList<String>();
-		Categories = new ArrayList<String>();
-		Publication_year = new ArrayList<Integer>();
-		ISBN = new ArrayList<Integer>();
-		Selling_price = new ArrayList<Integer>();
-		Authers = new ArrayList<ArrayList<String>>();
-		try {
-			validate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Publishers = PassValues.getPublisher();
+		Titles = PassValues.getTitle();
+		Categories = PassValues.getCategory();
+		Publication_year = PassValues.getPublicationYear();
+		ISBN = PassValues.getISBN();
+		Selling_price = PassValues.getSellingPrice();
+		Authers = PassValues.getAuthers();
 		Next.setDisable(true);
 		Previous.setDisable(true);
 	}

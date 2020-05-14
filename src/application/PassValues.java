@@ -9,64 +9,77 @@ public class PassValues {
 	private static List<String> bookCartCategory = new ArrayList<String>();
 	private static List<Integer> bookCartPublicationYear = new ArrayList<Integer>();
 	private static List<Integer> bookCartISBN = new ArrayList<Integer>();
-	private static List<Integer> bookCartSellingPrice = new ArrayList<Integer>();
+	private static List<Double> bookCartSellingPrice = new ArrayList<Double>();
 	private static List<ArrayList<String>> bookCartAuthers = new ArrayList<ArrayList<String>>();
-	private static String Title = "";
-	private static List<String> Auther = new ArrayList<String>();
-	private static String Publisher = "";
-	static int PublicationYear = 0;
-	static int SellingPrice = 0;
-	private static String Category;
-	private static String WhichBtn;// false add true delete
+	private static List<String> Title = new ArrayList<String>();
+	private static List<ArrayList<String>> Authers = new ArrayList<ArrayList<String>>();
+	private static List<String> Publisher = new ArrayList<String>();
+	private static List<Integer> PublicationYear = new ArrayList<Integer>();
+	private static List<Double> SellingPrice = new ArrayList<Double>();
+	private static List<Integer> ISBN = new ArrayList<Integer>();
+	private static List<String> Category = new ArrayList<String>();
+	private static String WhichBtn;// add to or delete from cart
 
-	public static void setTitle(String Title_set) {
-		Title = Title_set;
+	public static void setTitle(String Title_set) {// add true delete false
+		Title.add(Title_set);
 	}
 
-	public static String getTitele() {
+	public static List<String> getTitle() {
 		return Title;
 	}
 
-	public static void setAuthers(String Auther_set) {
-		Auther.add(Auther_set);
+	public static void setAuthers(ArrayList<String> Auther_set) {
+		Authers.add(Auther_set);
+
 	}
 
-	public static List<String> getAuthers() {
-		return Auther;
+	public static List<ArrayList<String>> getAuthers() {
+		return Authers;
 	}
 
 	public static void setPublisher(String Publisher_set) {
-		Publisher = Publisher_set;
+		Publisher.add(Publisher_set);
 	}
 
-	public static String getPublisher() {
+	public static List<String> getPublisher() {
 		return Publisher;
 	}
 
-	public static void setPublicationYear(int PublicationYear_set) {
-		PublicationYear = PublicationYear_set;
+	public static void setPublicationYear(Object PublicationYear_set) {
+		PublicationYear.add((Integer) PublicationYear_set);
+
 	}
 
-	public static int getPublicationYear() {
+	public static List<Integer> getPublicationYear() {
 		return PublicationYear;
 	}
 
-	public static void setSellingPrice(int SellingPrice_set) {
-		SellingPrice = SellingPrice_set;
+	public static void setISBN(Object ISBN_set) {
+		ISBN.add((Integer) ISBN_set);
 	}
 
-	public static int getSellingPrice() {
+	public static List<Integer> getISBN() {
+		return ISBN;
+	}
+
+	public static void setSellingPrice(Object SellingPrice_set) {
+		SellingPrice.add((Double) SellingPrice_set);
+	}
+
+	public static List<Double> getSellingPrice() {
 		return SellingPrice;
 	}
 
 	public static void setCategory(String Category_set) {
-		Category = Category_set;
+		Category.add(Category_set);
+
 	}
 
-	public static String getCategory() {
+	public static List<String> getCategory() {
 		return Category;
 	}
 
+//////////////////////////////////////////////////////
 	public static void setWhichBtb(String button_set) {
 		WhichBtn = button_set;
 	}
@@ -138,13 +151,13 @@ public class PassValues {
 
 	public static void setBookCartSellingPrice(Object bookCartSellingPrice_set, boolean addRemove) {
 		if (addRemove) {
-			bookCartSellingPrice.add((Integer) bookCartSellingPrice_set);
+			bookCartSellingPrice.add((Double) bookCartSellingPrice_set);
 		} else {
 			bookCartSellingPrice.remove(bookCartSellingPrice_set);
 		}
 	}
 
-	public static List<Integer> getBookCarttSellingPrice() {
+	public static List<Double> getBookCarttSellingPrice() {
 		return bookCartSellingPrice;
 	}
 
