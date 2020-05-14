@@ -65,7 +65,7 @@ public class MainPage {
 		} else {
 			CheckOut.setDisable(false);
 		}
-
+		DBConnector.getInstance().checkOut(PassValues.getBookCartISBN());
 	}
 
 	@FXML

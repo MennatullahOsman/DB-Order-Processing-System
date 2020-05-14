@@ -23,9 +23,9 @@ public class Manager extends Pane {
 		main.ParentPane.getChildren().add(root);
 	}
 
-    @FXML
-    Pane mangpane;
-    
+	@FXML
+	Pane mangpane;
+
 	@FXML
 	void addnewbook(ActionEvent event) {
 		if (!mangpane.getChildren().isEmpty()) {

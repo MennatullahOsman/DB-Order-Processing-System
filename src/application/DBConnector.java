@@ -153,7 +153,8 @@ public class DBConnector {
 
 	public void bookSearch(String Title, String Publisher, String Category, int PublicationYear, double SellingPrice,
 			List<String> Authers) {
-
+		// use setTitle, setAuthers, setPublisher, setPublicationYear, setSellingPrice,
+		// setISBN, setCategory
 	}
 
 	public void checkOut(List<Integer> ISBN) {

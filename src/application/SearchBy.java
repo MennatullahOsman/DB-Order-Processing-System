@@ -78,9 +78,8 @@ public class SearchBy extends Pane {
 		if (!Category.getSelectionModel().isEmpty()) {
 			Categories = Category.getSelectionModel().getSelectedItem().toString();
 		}
-		DBConnector db = new DBConnector();
-		db.bookSearch(Title.getText(), Publisher.getText(), Categories, Publication_year, Selling_price, Auther);
-
+		DBConnector.getInstance().bookSearch(Title.getText(), Publisher.getText(), Categories, Publication_year,
+				Selling_price, Auther);
 		mainPage.ParentPane.getChildren().remove(root);
 		PassValues.setWhichBtb("Add To Cart");
 		BookList bookList = new BookList(mainPage);
