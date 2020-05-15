@@ -474,13 +474,13 @@ public class DBConnector {
 			query = "select * from Book where ";
 		}
 		if (!title.equals("")) {
-			query += "title='" + title + "'";
+			query += "title like '%" + title + "%'";
 			first = false;
 		}
 		if (!publisher.equals("")) {
 			if (!first)
 				query += " and ";
-			query += "publisher_name='" + publisher + "'";
+			query += "publisher_name like %'" + publisher + "%'";
 			first = false;
 		}
 		if (!category.equals("")) {
@@ -505,7 +505,7 @@ public class DBConnector {
 		if (!auther.equals("")) {
 			if (!first)
 				query += " and ";
-			query += "Author='" + auther +"'";
+			query += "Author like '%" + auther +"%'";
 		}
 		try {
 			if (connection == null) {
