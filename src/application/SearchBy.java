@@ -65,10 +65,6 @@ public class SearchBy extends Pane {
 		double Selling_price = 0.0;
 		String Categories = "";
 		List<String> Auther = new ArrayList<String>();
-		for (String line : Authers.getText().split("\\n")) {
-			Auther.add(line);
-		}
-		PassValues.setPublisher(Publisher.getText());
 		if (!PublicationYear.getText().equals("")) {
 			Publication_year = Integer.parseInt(PublicationYear.getText());
 		}
@@ -79,7 +75,7 @@ public class SearchBy extends Pane {
 			Categories = Category.getSelectionModel().getSelectedItem().toString();
 		}
 		DBConnector.getInstance().bookSearch(Title.getText(), Publisher.getText(), Categories, Publication_year,
-				Selling_price, Auther);
+				Selling_price, Authers.getText());
 		mainPage.ParentPane.getChildren().remove(root);
 		PassValues.setWhichBtb("Add To Cart");
 		BookList bookList = new BookList(mainPage);

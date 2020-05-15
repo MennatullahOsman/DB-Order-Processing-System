@@ -8,7 +8,7 @@ public class PassValues {
 	private static List<String> bookCartTitle = new ArrayList<String>();
 	private static List<String> bookCartCategory = new ArrayList<String>();
 	private static List<Integer> bookCartPublicationYear = new ArrayList<Integer>();
-	private static List<Integer> bookCartISBN = new ArrayList<Integer>();
+	private static List<String> bookCartISBN = new ArrayList<String>();
 	private static List<Double> bookCartSellingPrice = new ArrayList<Double>();
 	private static List<ArrayList<String>> bookCartAuthers = new ArrayList<ArrayList<String>>();
 	private static List<String> Title = new ArrayList<String>();
@@ -16,7 +16,7 @@ public class PassValues {
 	private static List<String> Publisher = new ArrayList<String>();
 	private static List<Integer> PublicationYear = new ArrayList<Integer>();
 	private static List<Double> SellingPrice = new ArrayList<Double>();
-	private static List<Integer> ISBN = new ArrayList<Integer>();
+	private static List<String> ISBN = new ArrayList<String>();
 	private static List<String> Category = new ArrayList<String>();
 	private static String WhichBtn;// add to or delete from cart
 
@@ -54,11 +54,11 @@ public class PassValues {
 		return PublicationYear;
 	}
 
-	public static void setISBN(Object ISBN_set) {
-		ISBN.add((Integer) ISBN_set);
+	public static void setISBN(String ISBN_set) {
+		ISBN.add(ISBN_set);
 	}
 
-	public static List<Integer> getISBN() {
+	public static List<String> getISBN() {
 		return ISBN;
 	}
 
@@ -137,15 +137,15 @@ public class PassValues {
 		return bookCartPublicationYear;
 	}
 
-	public static void setBookCartISBN(Object bookCartISBN_set, boolean addRemove) {
+	public static void setBookCartISBN(String bookCartISBN_set, boolean addRemove) {
 		if (addRemove) {
-			bookCartISBN.add((Integer) bookCartISBN_set);
+			bookCartISBN.add(bookCartISBN_set);
 		} else {
 			bookCartISBN.remove(bookCartISBN_set);
 		}
 	}
 
-	public static List<Integer> getBookCartISBN() {
+	public static List<String> getBookCartISBN() {
 		return bookCartISBN;
 	}
 

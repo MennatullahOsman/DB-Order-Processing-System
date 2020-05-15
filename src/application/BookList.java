@@ -25,7 +25,7 @@ public class BookList {
 	private static List<String> Titles;
 	private static List<String> Categories;
 	private static List<Integer> Publication_year;
-	private static List<Integer> ISBN;
+	private static List<String> ISBN;
 	private static List<Double> Selling_price;
 	private static List<ArrayList<String>> Authers;
 	private static int counter = 0;
