@@ -16,6 +16,7 @@ public class DBConnector {
 	private static Connection connection;
 
 	private static String username; 
+	private static String password; 
 	// Replace below database url, username and password with your actual database
 	// credentials
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/order_processing_system?useSSL=false";
@@ -84,6 +85,7 @@ public class DBConnector {
 
 			preparedStatement.executeUpdate();
 			username = userName;
+			this.password = password;
 		} catch (SQLException e) {
 			// print SQL exception information
 			printSQLException(e);
@@ -126,6 +128,7 @@ public class DBConnector {
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, username);
 			preparedStatement.executeQuery();
+			this.password = password;
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
@@ -582,5 +585,9 @@ public class DBConnector {
 				}
 			}
 		}
+	}
+	
+	public String getpass() {
+		return password;
 	}
 }

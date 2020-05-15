@@ -49,6 +49,9 @@ public class AddBookD extends Pane {
 
 	@FXML
 	private TextField authers;
+	
+	@FXML
+	private TextField copies,orderQ;
 
 	@FXML
 	private TextField title;
@@ -99,16 +102,24 @@ public class AddBookD extends Pane {
 	void addnew(ActionEvent event) {
 		DBConnector db = DBConnector.getInstance();
 		/// check if all are entered first if not show error msg.
+		if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
+				|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
+				|| thershold.getText().isEmpty() || copies.getText().isEmpty()|| orderQ.getText().isEmpty()|| authers.getText().isEmpty()) {
+			/// error please enter missed data
+			return;
+		} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText()) || !isNumeric(copies.getText())){
+			/// error please enter numerical values for threshold, price, copies and order quantity.
+		} 
 		if (!db.bookexist(isbn.getText())) {
 			db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-					price.getText(), thershold.getText(), authers.getText());
+					price.getText(), thershold.getText(),copies.getText(),orderQ.getText(), authers.getText());
 		}
 	}
 
 	@FXML
 	void getdata(ActionEvent event) {
-		if (isbn.getText().isEmpty()) {
-			/// error please insert isbn
+		if (isbn.getText().isEmpty() || !isNumeric(isbn.getText())) {
+			/// error please insert valid isbn
 		} else {
 			DBConnector db = DBConnector.getInstance();
 			if (db.bookexist(isbn.getText())) {
@@ -126,17 +137,29 @@ public class AddBookD extends Pane {
 	void modifydata(ActionEvent event) {
 		if (currentISBN == null) {
 			/// error please enter isbn and get data first
+			return;
 		} else {
 			if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
 					|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
-					|| thershold.getText().isEmpty() || authers.getText().isEmpty()) {
+					|| thershold.getText().isEmpty() || orderQ.getText().isEmpty()|| authers.getText().isEmpty()) {
 				/// error please enter missed data
+				return;
+			} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText())){
+				/// error please enter numerical values for threshold, price and order quantity.
 			} else {
 				DBConnector db = DBConnector.getInstance();
 				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-						price.getText(), thershold.getText(), authers.getText());
+						price.getText(), thershold.getText(), orderQ.getText(), authers.getText());
 			}
 		}
 	}
 
+	private static boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
 }
