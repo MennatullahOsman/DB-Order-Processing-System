@@ -67,6 +67,11 @@ public class Manager extends Pane {
 		Users frame = new Users(this);
 	}
 
+    @FXML
+    void addpublisher(ActionEvent event) {
+    	
+    }
+    
 	@FXML
 	private void initialize() {
 	}
