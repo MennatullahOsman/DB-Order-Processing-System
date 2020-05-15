@@ -15,10 +15,11 @@ import javafx.scene.layout.Pane;
 //modify.setVisible(!flag);
 //getdata.setVisible(!flag);
 
-public class AddBookD extends Pane{
-	
+public class AddBookD extends Pane {
+
 	Manager man;
 	private Pane root;
+
 	public AddBookD(Manager m) {
 		man = m;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookD.fxml"));
@@ -35,7 +36,7 @@ public class AddBookD extends Pane{
 	private Button cancel;
 
 	@FXML
-	 Button add;
+	Button add;
 
 	@FXML
 	private MenuItem art;
@@ -53,7 +54,7 @@ public class AddBookD extends Pane{
 	private TextField title;
 
 	@FXML
-	 Button getdata;
+	Button getdata;
 
 	@FXML
 	private TextField thershold;
@@ -68,7 +69,7 @@ public class AddBookD extends Pane{
 	private MenuItem geo;
 
 	@FXML
-	 Button modify;
+	Button modify;
 
 	@FXML
 	private MenuItem re;
