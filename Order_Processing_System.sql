@@ -1,4 +1,4 @@
--- create schema order_processing_system;
+create schema order_processing_system;
 
 create table Publisher(
 Publisher_name varchar(100) primary key);
@@ -18,14 +18,14 @@ constraint foreign key (Publisher_name) references Publisher(Publisher_name)
 );
 create table book(
 ISBN_number char(10) primary key,
-title varchar(100),
-publisher_name varchar(100),
-publication_year year,
-selling_price double,
-category enum('Science','Art','Religion','History','Geography'),
-available_copies int unsigned,
-threshold int unsigned,
-order_quantity int unsigned,
+title varchar(100) not null,
+publisher_name varchar(100) not null,
+publication_year year not null,
+selling_price double not null,
+category enum('Science','Art','Religion','History','Geography') not null,
+available_copies int not null,
+threshold int unsigned not null,
+order_quantity int unsigned not null,
 constraint foreign key (Publisher_name) references Publisher(Publisher_name));
 
 
@@ -36,10 +36,10 @@ constraint primary key (ISBN_number, Author),
 constraint foreign key (ISBN_number) references Book(ISBN_number));
 
 create table Orders(
+id int unsigned primary key auto_increment,
 ISBN_number char(10),
 order_date datetime,
 quantity int unsigned,
-constraint primary key(ISBN_number,order_date),
 constraint foreign key (ISBN_number) references Book(ISBN_number));
 
 create table Users(
@@ -50,7 +50,17 @@ user_password char(40),
 user_phone varchar(14),
 user_address varchar(100),
 user_email varchar(30),
-user_privilege enum('customer', 'manager'));
+user_privilege enum('customer', 'manager') not null);
+
+create table Sales(
+id int unsigned primary key auto_increment,
+username varchar(20),
+ISBN_number char(14),
+quantity int unsigned default 1,
+price double,
+checkout_date date,
+constraint foreign key (ISBN_number) references Book(ISBN_number),
+constraint foreign key (username) references Users(username)); 
 
 DELIMITER $$
 create trigger negative_copies_check before update on Book
@@ -67,7 +77,7 @@ create trigger place_order after update on Book
 for each row 
 begin
 	if new.available_copies < new.threshold then
-		insert into Orders values(new.ISBN_number, NOW(), new.order_quantity);
+		insert into Orders(ISBN_number, order_date, quantity) values(new.ISBN_number, NOW(), new.order_quantity);
     end if;
 end;
 DELIMITER;
@@ -76,7 +86,7 @@ DELIMITER $$
 create trigger confirm_orders before delete on Orders
 for each row
 begin
-	update Book set available_copies=available_copies + quantity 
-    where Book.ISBN_number = Orders.ISBN_number;
+	update Book set available_copies = available_copies + old.quantity 
+    where Book.ISBN_number = old.ISBN_number;
 end;
 DELIMITER;
