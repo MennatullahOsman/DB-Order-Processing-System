@@ -1,5 +1,7 @@
 package application;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class PassValues {
 	private static List<String> bookCartISBN = new ArrayList<String>();
 	private static List<Double> bookCartSellingPrice = new ArrayList<Double>();
 	private static List<ArrayList<String>> bookCartAuthers = new ArrayList<ArrayList<String>>();
+	///////////////////////////////////////////////////////////////////////////////////////////
 	private static List<String> Title = new ArrayList<String>();
 	private static List<ArrayList<String>> Authers = new ArrayList<ArrayList<String>>();
 	private static List<String> Publisher = new ArrayList<String>();
@@ -18,6 +21,13 @@ public class PassValues {
 	private static List<Double> SellingPrice = new ArrayList<Double>();
 	private static List<String> ISBN = new ArrayList<String>();
 	private static List<String> Category = new ArrayList<String>();
+	private static List<Integer> AvaliableCopies = new ArrayList<Integer>();
+	///////////////////////////////////////////////////////////////////////////////////////////
+	private static List<Integer> orderId = new ArrayList<Integer>();
+	private static List<String> orderDate = new ArrayList<String>();
+	private static List<Integer> orderQuantity = new ArrayList<Integer>();
+	private static List<String> orderISBN = new ArrayList<String>();
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	private static String WhichBtn;// add to or delete from cart
 
 	public static void setTitle(String Title_set) {// add true delete false
@@ -79,7 +89,15 @@ public class PassValues {
 		return Category;
 	}
 
-//////////////////////////////////////////////////////
+	public static void setAvailableCopies(int AvailableCopies_set) {
+		AvaliableCopies.add(AvailableCopies_set);
+	}
+
+	public static List<Integer> getAvailableCopies() {
+		return AvaliableCopies;
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static void setWhichBtb(String button_set) {
 		WhichBtn = button_set;
 	}
@@ -88,7 +106,7 @@ public class PassValues {
 		return WhichBtn;
 	}
 
-	////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static void setBookCartTitle(String bookCartTitle_set, boolean addRemove) {// add true delete false
 		if (addRemove) {
 			bookCartTitle.add(bookCartTitle_set);
@@ -182,4 +200,42 @@ public class PassValues {
 		bookCartSellingPrice.clear();
 		bookCartAuthers.clear();
 	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static void setOrderID(int orderId_set) {
+		orderId.add(orderId_set);
+
+	}
+
+	public static List<Integer> getOrderID() {
+		return orderId;
+	}
+
+	public static void setOrderISBN(String orderISBN_set) {
+		orderISBN.add(orderISBN_set);
+	}
+
+	public static List<String> getOrderISBN() {
+		return orderISBN;
+	}
+
+	public static void setOrderDate(Timestamp orderDate_set) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String string = dateFormat.format(orderDate_set);
+		orderDate.add(string);
+
+	}
+
+	public static List<String> getOrderDate() {
+		return orderDate;
+	}
+
+	public static void setOrderQuantity(int orderQuantity_set) {
+		orderQuantity.add(orderQuantity_set);
+	}
+
+	public static List<Integer> getOrderQuantity() {
+		return orderQuantity;
+	}
+
 }
