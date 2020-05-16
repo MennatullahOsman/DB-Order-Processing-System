@@ -28,6 +28,9 @@ public class PassValues {
 	private static List<Integer> orderQuantity = new ArrayList<Integer>();
 	private static List<String> orderISBN = new ArrayList<String>();
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	private static List<String> dataToModify = new ArrayList<String>();
+	private static List<String> userdata = new ArrayList<String>();
+
 	private static String WhichBtn;// add to or delete from cart
 
 	public static void setTitle(String Title_set) {// add true delete false
@@ -236,6 +239,22 @@ public class PassValues {
 
 	public static List<Integer> getOrderQuantity() {
 		return orderQuantity;
+	}
+
+	public static List<String> getDataToModify() {
+		return dataToModify;
+	}
+
+	public static void setDataToModify(List<String> dataToModify) {
+		PassValues.dataToModify = dataToModify;
+	}
+
+	public static List<String> getUserdata() {
+		return userdata;
+	}
+
+	public static void setUserdata(List<String> userdata) {
+		PassValues.userdata = userdata;
 	}
 
 }

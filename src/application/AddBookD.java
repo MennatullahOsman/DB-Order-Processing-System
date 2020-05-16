@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,17 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-
-/// NEED TO RUN THIS FIRST
-//add.setVisible(flag);
-//modify.setVisible(!flag);
-//getdata.setVisible(!flag);
+import javafx.scene.text.Text;
 
 public class AddBookD extends Pane {
 
 	Manager man;
 	private Pane root;
-
+	private static List<String> dataToModify = new ArrayList<String>();
 	public AddBookD(Manager m) {
 		man = m;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookD.fxml"));
@@ -51,7 +49,9 @@ public class AddBookD extends Pane {
 	private TextField authers;
 	
 	@FXML
-	private TextField copies,orderQ;
+	TextField copies;
+	/// add label of copies and set not visable
+	private TextField orderQ;
 
 	@FXML
 	private TextField title;
@@ -86,12 +86,10 @@ public class AddBookD extends Pane {
 	@FXML
 	private TextField category;
 
-	private String currentISBN = null, ctitle, cpname, cpyear, ccat, cthr, cprice, cauthors;
-	private boolean flag = false; // add true, modify false
-
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
+	@FXML
+	private Text error;
+	
+	private String currentISBN = null, ctitle, cpname, cpyear, ccat, cthr, cprice,cOQ , cauthors;
 
 	@FXML
 	void closedialog(ActionEvent event) {
@@ -106,9 +104,11 @@ public class AddBookD extends Pane {
 				|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
 				|| thershold.getText().isEmpty() || copies.getText().isEmpty()|| orderQ.getText().isEmpty()|| authers.getText().isEmpty()) {
 			/// error please enter missed data
+			error.setText("ERROR: Please enter missed data");
 			return;
 		} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText()) || !isNumeric(copies.getText())){
 			/// error please enter numerical values for threshold, price, copies and order quantity.
+			error.setText("ERROR: Please enter numerical values for threshold, price, copies and order quantity.");
 		} 
 		if (!db.bookexist(isbn.getText())) {
 			db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
@@ -120,15 +120,34 @@ public class AddBookD extends Pane {
 	void getdata(ActionEvent event) {
 		if (isbn.getText().isEmpty() || !isNumeric(isbn.getText())) {
 			/// error please insert valid isbn
+			error.setText("ERROR: Please insert valied ISBN");
 		} else {
 			DBConnector db = DBConnector.getInstance();
 			if (db.bookexist(isbn.getText())) {
 				db.getbookdata(isbn.getText());
 				/// get data from pass data and put it in
 				/// ctitle,cpname,cpyear,ccat,cthr,cprice,cauthors and text fields
+				dataToModify = PassValues.getDataToModify();
+				ctitle = dataToModify.get(0);
+				title.setText(ctitle);
+				cpname = dataToModify.get(1);
+				pname.setText(cpname);
+				cpyear = dataToModify.get(2);
+				pyear.setText(cpyear);
+				cprice = dataToModify.get(3);
+				price.setText(cprice);
+				ccat = dataToModify.get(4);
+				category.setText(ccat);
+				cthr = dataToModify.get(5);
+				thershold.setText(cthr);
+				cOQ = dataToModify.get(6);
+				orderQ.setText(cOQ);
+				cauthors = dataToModify.get(7);
+				authers.setText(cauthors);
 				currentISBN = isbn.getText();
 			} else {
 				/// error this book not found
+				error.setText("ERROR: This book wasn't found");
 			}
 		}
 	}
@@ -137,15 +156,18 @@ public class AddBookD extends Pane {
 	void modifydata(ActionEvent event) {
 		if (currentISBN == null) {
 			/// error please enter isbn and get data first
+			error.setText("ERROR: Please enter the ISBN and click on get data first");
 			return;
 		} else {
 			if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
 					|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
 					|| thershold.getText().isEmpty() || orderQ.getText().isEmpty()|| authers.getText().isEmpty()) {
 				/// error please enter missed data
+				error.setText("ERROR: Please enter missed data");
 				return;
 			} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText())){
 				/// error please enter numerical values for threshold, price and order quantity.
+				error.setText("ERROR: Please enter numerical values for threshold, price and order quantity.");
 			} else {
 				DBConnector db = DBConnector.getInstance();
 				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
