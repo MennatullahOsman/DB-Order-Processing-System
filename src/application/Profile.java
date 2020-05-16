@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
@@ -20,7 +22,7 @@ public class Profile extends Pane {
 		mainPage = main;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Profile.fxml"));
 		loader.setController(this);
-
+		viewData();
 		try {
 			root = loader.load();
 		} catch (IOException exception) {
@@ -66,6 +68,7 @@ public class Profile extends Pane {
 	@FXML
 	private Text errordata;
 	private String first, last, emailadd, phonenum, shipadd, ccn, ed;
+	private List<String> userdata = new ArrayList<String>();;
 
 	@FXML
 	void editData(ActionEvent event) {
@@ -101,12 +104,24 @@ public class Profile extends Pane {
 			ccn = cc.getText();
 		}
 		ed = edate.getText();
-		// DB.editData(first, last, emailadd, phonenum, shipadd, ccn, ed);
+		DBConnector db = DBConnector.getInstance();
+		db.editData(first, last, emailadd, phonenum, shipadd, ccn, ed);
 		mainPage.ParentPane.getChildren().remove(root);
 	}
 
 	void viewData() {
 		/// WANT TO CALL IT WHEN FRAME OPEND DIRECTLY
+		DBConnector db = DBConnector.getInstance();
+		db.getuserdata(db.getcurrentusername());
+		userdata = PassValues.getUserdata();
+		first = userdata.get(0);
+		last = userdata.get(1);
+		phonenum = userdata.get(2);
+		emailadd = userdata.get(3);
+		shipadd = userdata.get(4); // 5 is the privilege we don't need it here
+		ccn = userdata.get(6);
+		ed = userdata.get(7);
+
 		firstname.setText(first);
 		lastname.setText(last);
 		cc.setText(ccn);
@@ -114,17 +129,6 @@ public class Profile extends Pane {
 		phone.setText(phonenum);
 		shippingadd.setText(shipadd);
 		edate.setText(ed);
-	}
-
-	void setData(String firstname, String lastname, String email, String phone, String shippingadd, String cc,
-			String edate) {
-		first = firstname;
-		last = lastname;
-		emailadd = email;
-		phonenum = phone;
-		shipadd = shippingadd;
-		ccn = cc;
-		ed = edate;
 	}
 
 	@FXML
@@ -154,6 +158,7 @@ public class Profile extends Pane {
 			return false;
 		return pat.matcher(email).matches();
 	}
+
 	private static boolean isNumeric(String str) {
 		try {
 			Double.parseDouble(str);

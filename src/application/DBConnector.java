@@ -15,8 +15,8 @@ public class DBConnector {
 	private static DBConnector single_instance = null;
 	private static Connection connection;
 
-	private static String username; 
-	private static String password; 
+	private static String username;
+	private static String password;
 	// Replace below database url, username and password with your actual database
 	// credentials
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/order_processing_system?useSSL=false";
@@ -85,7 +85,7 @@ public class DBConnector {
 
 			preparedStatement.executeUpdate();
 			username = userName;
-			this.password = password;
+			DBConnector.password = password;
 		} catch (SQLException e) {
 			// print SQL exception information
 			printSQLException(e);
@@ -108,7 +108,7 @@ public class DBConnector {
 			// Profile p = new Profile();
 			// p.setData();
 			if (resultSet.next()) {
-				this.username = username;
+				DBConnector.username = username;
 				return true;
 			}
 		} catch (SQLException e) {
@@ -122,18 +122,17 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "update Users(password) "
-					+ "set values(SHA1(?)) where username=?";
+			String query = "update Users(password) " + "set values(SHA1(?)) where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, username);
 			preparedStatement.executeQuery();
-			this.password = password;
+			DBConnector.password = password;
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
 	}
-	
+
 	public void editData(String firstname, String lastname, String email, String phone, String shippingadd, String cc,
 			String edate) {
 		try {
@@ -173,7 +172,7 @@ public class DBConnector {
 		}
 		return false;
 	}
-	
+
 	public void addPublisher(String name, ArrayList<String> phones, ArrayList<String> addresses) {
 		try {
 			if (connection == null) {
@@ -184,7 +183,7 @@ public class DBConnector {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, name);
 			preparedStatement.executeQuery();
-			
+
 			String publisherAddressesQuery = "insert into Publisher_Address values(?,?)";
 			for (String a : addresses) {
 				preparedStatement = connection.prepareStatement(publisherAddressesQuery);
@@ -215,7 +214,7 @@ public class DBConnector {
 			printSQLException(e);
 		}
 	}
-	
+
 	public void addBook(String isbn, String title, String pname, String pyear, String category, String price,
 			String threashold, String availableCopies, String orderQuantity, String authors) {
 		/// to db
@@ -236,7 +235,7 @@ public class DBConnector {
 			preparedStatement.setInt(8, Integer.valueOf(threashold));
 			preparedStatement.setInt(9, Integer.valueOf(orderQuantity));
 			preparedStatement.executeQuery();
-			
+
 			String authorsQuery = "insert into Book_Authors values(?,?)";
 			String[] authorsArray = authors.split(",");
 			for (String a : authorsArray) {
@@ -295,15 +294,24 @@ public class DBConnector {
 			PreparedStatement preparedStatement = connection.prepareStatement(selectFromBookQuery);
 			preparedStatement.setString(1, isbn);
 			ResultSet result = preparedStatement.executeQuery();
+			List<String> dataToModify = new ArrayList<String>();
 			if (result.next()) {
 				String title = result.getString("title");
+				dataToModify.add(title);
 				String publisherName = result.getString("publisher_name");
+				dataToModify.add(publisherName);
 				String publicationYear = result.getString("publication_year");
+				dataToModify.add(publicationYear);
 				double sellingPrice = result.getDouble("selling_price");
+				dataToModify.add(String.valueOf(sellingPrice));
 				String category = result.getString("category");
-				int availableCopies = result.getInt("available_copies");
+				dataToModify.add(category);
+				// int availableCopies = result.getInt("available_copies");
+				// dataToModify.add(String.valueOf(availableCopies));
 				int threshold = result.getInt("threshold");
+				dataToModify.add(String.valueOf(threshold));
 				int orderQuantity = result.getInt("order_quantity");
+				dataToModify.add(String.valueOf(orderQuantity));
 			}
 			/** get book authors from book authors relation **/
 			preparedStatement = connection.prepareStatement(selectFromBookAuthorsQuery);
@@ -313,6 +321,12 @@ public class DBConnector {
 			while (result.next()) {
 				authors.add(result.getString("Author"));
 			}
+			String listString = "";
+			for (String s : authors) {
+				listString += s + ",";
+			}
+			dataToModify.add(listString);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			printSQLException(e);
@@ -339,12 +353,12 @@ public class DBConnector {
 			preparedStatement.setInt(7, Integer.valueOf(orderQuantity));
 			preparedStatement.setString(8, isbn);
 			preparedStatement.executeQuery();
-			
+
 			String deleteAuthorsQuery = "delete from Book_Authors where ISBN_number=?";
 			preparedStatement = connection.prepareStatement(deleteAuthorsQuery);
 			preparedStatement.setString(1, isbn);
 			preparedStatement.executeQuery();
-			
+
 			String authorsQuery = "insert into Book_Authors values(?,?)";
 			String[] authorsArray = authors.split(",");
 			for (String a : authorsArray) {
@@ -398,7 +412,7 @@ public class DBConnector {
 			while (result.next()) {
 				int orderId = result.getInt("id");
 				String ISBN = result.getString("ISBN_number");
-				Date timeStamp = result.getTimestamp("order_date");		//YYYY-MM-DD HH:MM:SS
+				Date timeStamp = result.getTimestamp("order_date"); // YYYY-MM-DD HH:MM:SS
 				int quantity = result.getInt("quantity");
 			}
 		} catch (SQLException e) {
@@ -406,7 +420,7 @@ public class DBConnector {
 			printSQLException(e);
 		}
 	}
-	
+
 	public void confirmOrder(int id) {
 		try {
 			if (connection == null) {
@@ -421,9 +435,10 @@ public class DBConnector {
 			printSQLException(e);
 		}
 	}
-	
+
 	public String getuserdata(String username) {
 		/// db
+		String res = "";
 		try {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -432,20 +447,36 @@ public class DBConnector {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, username);
 			ResultSet result = preparedStatement.executeQuery();
+			List<String> userdata = new ArrayList<String>();
 			if (result.next()) {
 				String firstName = result.getString("first_name");
+				res += "First Name: " + firstName + "\n";
+				userdata.add(firstName);
 				String secondName = result.getString("last_name");
+				res += "Second Name: " + secondName + "\n";
+				userdata.add(secondName);
 				String phone = result.getString("user_phone");
+				res += "Phone: " + phone + "\n";
+				userdata.add(phone);
 				String email = result.getString("user_email");
+				res += "E-Mail: " + email + "\n";
+				userdata.add(email);
 				String address = result.getString("user_address");
+				res += "Address: " + address + "\n";
+				userdata.add(address);
 				String privelege = result.getString("user_privilege");
+				res += "Privelege: " + privelege + "\n";
+				userdata.add(privelege);
+				// userdata.add(ccn);
+				// userdata.add(expiredate);
+				PassValues.setUserdata(userdata);
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			printSQLException(e);
 		}
-		String data = " ";
-		return data;
+		return res;
 	}
 
 	public void promote(String username) {
@@ -508,7 +539,7 @@ public class DBConnector {
 		if (!auther.equals("")) {
 			if (!first)
 				query += " and ";
-			query += "Author like '%" + auther +"%'";
+			query += "Author like '%" + auther + "%'";
 		}
 		try {
 			if (connection == null) {
@@ -570,7 +601,7 @@ public class DBConnector {
 			}
 		}
 	}
-	
+
 	public static void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {
@@ -586,8 +617,12 @@ public class DBConnector {
 			}
 		}
 	}
-	
+
 	public String getpass() {
 		return password;
+	}
+
+	public String getcurrentusername() {
+		return username;
 	}
 }

@@ -32,10 +32,11 @@ public class Manager extends Pane {
 			mangpane.getChildren().remove(0);
 		}
 		AddBookD frame = new AddBookD(this);
-//		frame.setFlag(true);
+		// frame.setFlag(true);
 		frame.add.setVisible(true);
 		frame.modify.setVisible(false);
 		frame.getdata.setVisible(false);
+		frame.copies.setVisible(true);
 	}
 
 	@FXML
@@ -45,10 +46,12 @@ public class Manager extends Pane {
 			mangpane.getChildren().remove(0);
 		}
 		AddBookD frame = new AddBookD(this);
-//		frame.setFlag(false);
+		// frame.setFlag(false);
 		frame.add.setVisible(false);
 		frame.modify.setVisible(true);
 		frame.getdata.setVisible(true);
+		frame.copies.setVisible(false);
+		/// label of copies set visible false
 	}
 
 	@FXML
@@ -67,11 +70,14 @@ public class Manager extends Pane {
 		Users frame = new Users(this);
 	}
 
-    @FXML
-    void addpublisher(ActionEvent event) {
-    	
-    }
-    
+	@FXML
+	void addpublisher(ActionEvent event) {
+		if (!mangpane.getChildren().isEmpty()) {
+			mangpane.getChildren().remove(0);
+		}
+		Publisher frame = new Publisher(this);
+	}
+
 	@FXML
 	private void initialize() {
 	}

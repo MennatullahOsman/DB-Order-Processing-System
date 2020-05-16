@@ -18,6 +18,8 @@ public class PassValues {
 	private static List<Double> SellingPrice = new ArrayList<Double>();
 	private static List<String> ISBN = new ArrayList<String>();
 	private static List<String> Category = new ArrayList<String>();
+	private static List<String> dataToModify = new ArrayList<String>();
+	private static List<String> userdata = new ArrayList<String>();
 	private static String WhichBtn;// add to or delete from cart
 
 	public static void setTitle(String Title_set) {// add true delete false
@@ -79,7 +81,7 @@ public class PassValues {
 		return Category;
 	}
 
-//////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////
 	public static void setWhichBtb(String button_set) {
 		WhichBtn = button_set;
 	}
@@ -181,5 +183,21 @@ public class PassValues {
 		bookCartISBN.clear();
 		bookCartSellingPrice.clear();
 		bookCartAuthers.clear();
+	}
+
+	public static List<String> getDataToModify() {
+		return dataToModify;
+	}
+
+	public static void setDataToModify(List<String> dataToModify) {
+		PassValues.dataToModify = dataToModify;
+	}
+
+	public static List<String> getUserdata() {
+		return userdata;
+	}
+
+	public static void setUserdata(List<String> userdata) {
+		PassValues.userdata = userdata;
 	}
 }

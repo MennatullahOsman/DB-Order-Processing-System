@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Window;
+//import javafx.stage.Window;
 
 public class Registration {
 	@FXML
@@ -76,49 +76,61 @@ public class Registration {
 	private Text phoneErrorSignup;
 
 	@FXML
+	private Text signuperror;
+	@FXML
+	private Text signinerror;
+
+	@FXML
 	public void reg(ActionEvent event) throws SQLException {
 
-		Window owner = signup.getScene().getWindow();
+		// Window owner = signup.getScene().getWindow();
+		boolean flag = false;
 		if (usernameup.getText().isEmpty()) {
 			userErrorSignup.setVisible(true);
+			flag = true;
 		}
 		if (firstname.getText().isEmpty() || firstname.getText().matches(".*\\d.*")) {
 			firstErrorSignup.setVisible(true);
+			flag = true;
 		}
 		if (lastname.getText().isEmpty() || lastname.getText().matches(".*\\d.*")) {
 			secondErrorSignup.setVisible(true);
+			flag = true;
 		}
 		if (email.getText().isEmpty() || !validEmail(email.getText())) {
 			emailErrorSignup.setVisible(true);
+			flag = true;
 		}
 		if (phone.getText().isEmpty() || !isNumeric(phone.getText())) {
 			phoneErrorSignup.setVisible(true);
+			flag = true;
 		}
 		if (passwordup.getText().isEmpty()) {
 			PassErrorSignup.setVisible(true);
+			flag = true;
 		}
 		if (shippingadd.getText().isEmpty()) {
 			addressErrorSignup.setVisible(true);
+			flag = true;
 		}
-
-//        String firstName = firstname.getText();
-//        String lastName = lastname.getText();
-//        String userName = usernameup.getText();
-//        String emailadd = email.getText();
-//        String password = passwordup.getText();
-//        String phonen = phone.getText();
-//        String shippingadds = shippingadd.getText();
-//        DBConnector DB = new DBConnector();
-//        /// ERROR WHEN TRY TO ENTER ALREADY EXISTING USERNAME
-//        if (DB.existusername(userName)) {
-//        	showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-//                    "Please enter another username as this user name already exist!");
-//                return;
-//        } else {
-//        	DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
-//        	showAlert(Alert.AlertType.CONFIRMATION, owner, "Registration Successful!",
-//                    "Welcome " + firstname.getText());
-//        }
+		if (!flag) {
+			String firstName = firstname.getText();
+			String lastName = lastname.getText();
+			String userName = usernameup.getText();
+			String emailadd = email.getText();
+			String password = passwordup.getText();
+			String phonen = phone.getText();
+			String shippingadds = shippingadd.getText();
+			DBConnector DB = new DBConnector();
+			/// ERROR WHEN TRY TO ENTER ALREADY EXISTING USERNAME
+			if (DB.existusername(userName)) {
+				signuperror.setText("Please enter another username as this user name already exist!");
+			} else {
+				DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
+				signuperror.setText("Registration Successful! " + "Welcome " + firstname.getText());
+				/// open the main page.
+			}
+		}
 	}
 
 	@FXML
@@ -134,14 +146,15 @@ public class Registration {
 		String username = usernamein.getText();
 		String password = passwordin.getText();
 
-//        DBConnector DB = new DBConnector();
-//        boolean flag = DB.validate(username, password);
-//
-//        if (!flag) {
-//            infoBox("Please enter correct User Name and Password", null, "Failed");
-//        } else {
-//            infoBox("Login Successful!", null, "Failed");
-//        }
+		DBConnector DB = new DBConnector();
+		boolean flag = DB.validate(username, password);
+
+		if (!flag) {
+			signinerror.setText("Please enter correct User Name and Password");
+		} else {
+			signinerror.setText("Login Successful!");
+			/// open the main page.
+		}
 	}
 
 	public static void infoBox(String infoMessage, String headerText, String title) {
@@ -152,16 +165,7 @@ public class Registration {
 		alert.showAndWait();
 	}
 
-	private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-		Alert alert = new Alert(alertType);
-		alert.setTitle(title);
-		alert.setHeaderText(null);
-		alert.setContentText(message);
-		alert.initOwner(owner);
-		alert.show();
-	}
-
-	public static boolean isNumeric(String str) {
+	private static boolean isNumeric(String str) {
 		try {
 			Double.parseDouble(str);
 			return true;
@@ -170,7 +174,7 @@ public class Registration {
 		}
 	}
 
-	public static boolean validEmail(String email) {
+	private static boolean validEmail(String email) {
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
 				+ "A-Z]{2,7}$";
 
