@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -32,6 +33,8 @@ public class MainPage {
 	Pane ParentPane;
 	@FXML
 	public static Button Search;
+	@FXML
+	public Label userName;// problems happens with set because static
 
 	@FXML
 	private void SearchAction(ActionEvent event) {
@@ -65,7 +68,6 @@ public class MainPage {
 		} else {
 			CheckOut.setDisable(false);
 		}
-		DBConnector.getInstance().checkOut(PassValues.getBookCartISBN());
 	}
 
 	@FXML
@@ -83,6 +85,7 @@ public class MainPage {
 		ParentPane.getChildren().remove(0);
 		PassValues.clearAll();
 		CheckOut.setVisible(false);
+		DBConnector.getInstance().checkOut(PassValues.getBookCartISBN());
 	}
 
 	public void showStage() {
@@ -91,7 +94,7 @@ public class MainPage {
 
 	@FXML
 	public void initialize() {
-
+		userName.setText("Hi, " + PassValues.getUserName());
 	}
 
 }

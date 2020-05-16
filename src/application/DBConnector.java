@@ -494,11 +494,8 @@ public class DBConnector {
 		}
 	}
 
-	// list of authors changed to String
 	public void bookSearch(String title, String publisher, String category, int publicationYear, double sellingPrice,
 			String auther) {
-		// use setTitle, setAuthers, setPublisher, setPublicationYear, setSellingPrice,
-		// setISBN, setCategory
 		boolean first = true;
 		String query;
 		if (!auther.equals("")) {
