@@ -6,7 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DBConnector {
@@ -31,6 +33,7 @@ public class DBConnector {
 
 	public static DBConnector getInstance() {
 		if (single_instance == null) {
+			username = "emanrafik";
 			single_instance = new DBConnector();
 		}
 		if (connection == null) {
@@ -125,7 +128,7 @@ public class DBConnector {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, username);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 			DBConnector.password = password;
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -147,7 +150,7 @@ public class DBConnector {
 			preparedStatement.setString(4, shippingadd);
 			preparedStatement.setString(5, email);
 			preparedStatement.setString(6, username);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
@@ -181,21 +184,21 @@ public class DBConnector {
 			String query = "insert into Publisher values(?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, name);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 
 			String publisherAddressesQuery = "insert into Publisher_Address values(?,?)";
 			for (String a : addresses) {
 				preparedStatement = connection.prepareStatement(publisherAddressesQuery);
 				preparedStatement.setString(1, name);
 				preparedStatement.setString(2, a);
-				preparedStatement.executeQuery();
+				preparedStatement.executeUpdate();
 			}
 			String publisherPhonesQuery = "insert into Publisher_Address values(?,?)";
 			for (String ph : phones) {
 				preparedStatement = connection.prepareStatement(publisherPhonesQuery);
 				preparedStatement.setString(1, name);
 				preparedStatement.setString(2, ph);
-				preparedStatement.executeQuery();
+				preparedStatement.executeUpdate();
 			}
 			connection.commit();
 			connection.setAutoCommit(true);
@@ -233,15 +236,15 @@ public class DBConnector {
 			preparedStatement.setInt(7, Integer.valueOf(availableCopies));
 			preparedStatement.setInt(8, Integer.valueOf(threashold));
 			preparedStatement.setInt(9, Integer.valueOf(orderQuantity));
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 
 			String authorsQuery = "insert into Book_Authors values(?,?)";
 			String[] authorsArray = authors.split(",");
 			for (String a : authorsArray) {
 				preparedStatement = connection.prepareStatement(authorsQuery);
 				preparedStatement.setString(1, isbn);
-				preparedStatement.setString(2, a);
-				preparedStatement.executeQuery();
+				preparedStatement.setString(2, a.trim());
+				preparedStatement.executeUpdate();
 			}
 			connection.commit();
 			connection.setAutoCommit(true);
@@ -299,7 +302,9 @@ public class DBConnector {
 				dataToModify.add(title);
 				String publisherName = result.getString("publisher_name");
 				dataToModify.add(publisherName);
-				String publicationYear = result.getString("publication_year");
+				Date date = result.getDate("publication_year");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+				String publicationYear = formatter.format(date);
 				dataToModify.add(publicationYear);
 				double sellingPrice = result.getDouble("selling_price");
 				dataToModify.add(String.valueOf(sellingPrice));
@@ -351,20 +356,20 @@ public class DBConnector {
 			preparedStatement.setInt(6, Integer.valueOf(threashold));
 			preparedStatement.setInt(7, Integer.valueOf(orderQuantity));
 			preparedStatement.setString(8, isbn);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 
 			String deleteAuthorsQuery = "delete from Book_Authors where ISBN_number=?";
 			preparedStatement = connection.prepareStatement(deleteAuthorsQuery);
 			preparedStatement.setString(1, isbn);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 
 			String authorsQuery = "insert into Book_Authors values(?,?)";
 			String[] authorsArray = authors.split(",");
 			for (String a : authorsArray) {
 				preparedStatement = connection.prepareStatement(authorsQuery);
 				preparedStatement.setString(1, isbn);
-				preparedStatement.setString(2, a);
-				preparedStatement.executeQuery();
+				preparedStatement.setString(2, a.trim());
+				preparedStatement.executeUpdate();
 			}
 			connection.commit();
 			connection.setAutoCommit(true);
@@ -428,7 +433,7 @@ public class DBConnector {
 			String query = "delete from Orders where id=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			printSQLException(e);
@@ -487,7 +492,7 @@ public class DBConnector {
 			String query = "update users set user_privilege='manager' where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, username);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			printSQLException(e);
@@ -545,18 +550,20 @@ public class DBConnector {
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
 				String ISBN = result.getString("ISBN_number");
-				String authorsQuery = "select * from Book_Authors where ISBN_numner=?";
+				String authorsQuery = "select * from Book_Authors where ISBN_number=?";
 				preparedStatement = connection.prepareStatement(authorsQuery);
 				preparedStatement.setString(1, ISBN);
 				ResultSet authors = preparedStatement.executeQuery();
 				ArrayList<String> Authers = new ArrayList<String>();
 				while (authors.next()) {
-					Authers.add(result.getString("Author"));
+					Authers.add(authors.getString("Author"));
 				}
 				PassValues.setAuthers(Authers);
 				PassValues.setTitle(result.getString("title"));
 				PassValues.setPublisher(result.getString("publisher_name"));
-				PassValues.setPublicationYear(result.getString("publication_year"));
+				Date date = result.getDate("publication_year");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+				PassValues.setPublicationYear(Integer.valueOf(formatter.format(date)));
 				PassValues.setCategory(result.getString("category"));
 				PassValues.setSellingPrice(result.getDouble("selling_price"));
 				PassValues.setAvailableCopies(result.getInt("available_copies"));
@@ -578,11 +585,13 @@ public class DBConnector {
 			for (String s : ISBN) {
 				PreparedStatement preparedStatement = connection.prepareStatement(updateBookQuery);
 				preparedStatement.setString(1, s);
-				preparedStatement.executeQuery();
+				preparedStatement.executeUpdate();
 				CallableStatement callableStatement = connection.prepareCall(addToSalesProcedureCall);
 				callableStatement.setString(1, username);
 				callableStatement.setString(2, s);
+				callableStatement.executeQuery();
 			}
+			System.out.println("commited");
 			connection.commit();
 			connection.setAutoCommit(true);
 		} catch (SQLException e) {
