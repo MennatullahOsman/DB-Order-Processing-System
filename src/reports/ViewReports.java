@@ -11,7 +11,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class Reports {
+public class ViewReports {
 
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/order_processing_system?useSSL=false";
 	private static final String DATABASE_USERNAME = "root";
@@ -19,26 +19,12 @@ public class Reports {
 	
 	private Connection connection;
 	
-	public Reports() {
+	public ViewReports() {
 		try {
 			connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-	
-	public void totalSales() {
-		if (connection != null) {
-			try {
-				JasperReport jasperReport = JasperCompileManager
-						.compileReport("src/reports/TotalSales.jrxml");
-				JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection);
-				JasperViewer.viewReport(jasperPrint, false);
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 	

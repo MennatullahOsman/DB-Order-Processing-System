@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+import reports.ViewReports;
 
 public class Reports extends Pane{
 
@@ -24,17 +25,20 @@ public class Reports extends Pane{
 	}
     @FXML
     void totalSales(ActionEvent event) {
-
+    	ViewReports view = new ViewReports();
+    	view.totalSalesSummary();
     }
 
     @FXML
     void topBooks(ActionEvent event) {
-
+    	ViewReports view = new ViewReports();
+    	view.topSellingBooks();
     }
 
     @FXML
     void topCustomers(ActionEvent event) {
-
+    	ViewReports view = new ViewReports();
+    	view.topCustomers();
     }
 
 }
