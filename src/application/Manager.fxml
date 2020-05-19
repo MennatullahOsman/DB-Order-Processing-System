@@ -35,7 +35,7 @@
             <Button fx:id="modifybt" mnemonicParsing="false" onAction="#modifyexistingbook" prefHeight="25.0" prefWidth="131.0" text="Modify book" GridPane.columnIndex="2" />
             <Button fx:id="neworderbt" mnemonicParsing="false" onAction="#placeneworder" prefHeight="25.0" prefWidth="131.0" text="Orders" GridPane.columnIndex="4" />
             <Button fx:id="promotbt" mnemonicParsing="false" onAction="#promotion" text="Promot customers" GridPane.columnIndex="6" />
-            <Button fx:id="reportsbt" mnemonicParsing="false" onAction="#placeneworder" prefHeight="25.0" prefWidth="131.0" text="Reports" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button fx:id="reportsbt" mnemonicParsing="false" onAction="#reports" prefHeight="25.0" prefWidth="131.0" text="Reports" GridPane.columnIndex="4" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#addpublisher" prefHeight="25.0" prefWidth="131.0" text="Add new Publisher " GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>

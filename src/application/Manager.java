@@ -82,4 +82,11 @@ public class Manager extends Pane {
 	private void initialize() {
 	}
 
+    @FXML
+    void reports(ActionEvent event) {
+		if (!mangpane.getChildren().isEmpty()) {
+			mangpane.getChildren().remove(0);
+		}
+		Reports frame = new Reports(this);
+    }
 }
