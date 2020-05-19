@@ -22,7 +22,7 @@ public class Profile extends Pane {
 		mainPage = main;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Profile.fxml"));
 		loader.setController(this);
-		viewData();
+		// viewData();
 		try {
 			root = loader.load();
 		} catch (IOException exception) {

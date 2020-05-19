@@ -30,6 +30,16 @@ public class PassValues {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	private static List<String> dataToModify = new ArrayList<String>();
 	private static List<String> userdata = new ArrayList<String>();
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	private static String firstName = "";
+	private static String secondName = "";
+	private static String userName = "";
+	private static String email = "";
+	private static String address = "";
+	private static String privilage = "";
+	private static String expiredDate = "";
+	private static String CCard = "";
+	private static String phone = "";
 
 	private static String WhichBtn;// add to or delete from cart
 
@@ -241,6 +251,7 @@ public class PassValues {
 		return orderQuantity;
 	}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static List<String> getDataToModify() {
 		return dataToModify;
 	}
@@ -257,4 +268,68 @@ public class PassValues {
 		PassValues.userdata = userdata;
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static void setUserName(String userName_set) {
+		userName = userName_set;
+	}
+
+	public static String getUserName() {
+		return userName;
+	}
+
+	public static void setFirstName(String firstName_set) {
+		firstName = firstName_set;
+	}
+
+	public static String getFirstName() {
+		return firstName;
+	}
+
+	public static void setSecondName(String secondName_set) {
+		secondName = secondName_set;
+	}
+
+	public static String getSecondName() {
+		return secondName;
+	}
+
+	public static void setEmail(String email_set) {
+		email = email_set;
+	}
+
+	public static String getEmail() {
+		return email;
+	}
+
+	public static void setAddress(String address_set) {
+		address = address_set;
+	}
+
+	public static String getAddress() {
+		return address;
+	}
+
+	public static void setPhone(String phone_set) {
+		phone = phone_set;
+	}
+
+	public static String getPhone() {
+		return phone;
+	}
+
+	public static void setCCard(String CCard_set) {
+		CCard = CCard_set;
+	}
+
+	public static String getCCard() {
+		return CCard;
+	}
+
+	public static void setExpiredDate(String expiredDate_set) {
+		expiredDate = expiredDate_set;
+	}
+
+	public static String getExpiredDate() {
+		return expiredDate;
+	}
 }

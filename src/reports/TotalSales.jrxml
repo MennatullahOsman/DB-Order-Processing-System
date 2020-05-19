@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TotalSales" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b2bd2fc-7ae5-4226-ab0d-5a383a9f9a5b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="src\reports\DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select ISBN_number, sum(quantity), sum(price) from Sales group by ISBN_number having checkout_date >= (NOW() - INTERVAL 1 MONTH)]]>
+	</queryString>
+	<field name="ISBN_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ISBN_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
+	</field>
+	<field name="sum(quantity)" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="sum(quantity)"/>
+	</field>
+	<field name="sum(price)" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="sum(price)"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="30" uuid="bbf64949-2ece-49b5-a1fe-d06751c1c121"/>
+				<text><![CDATA[Total book sales during this month]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="30" uuid="13604160-0530-4450-86f8-cc17fe4af47a"/>
+				<text><![CDATA[Total quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="d3ecbed9-cb81-4ac0-bda8-6db409019c90"/>
+				<text><![CDATA[ISBN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="654e68a2-bff4-4e37-bcaf-b7825a8d587d"/>
+				<text><![CDATA[Total price]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="100" height="30" uuid="1ecbb327-f227-4493-adf3-9dc885b4a9ca"/>
+				<textFieldExpression><![CDATA[$F{ISBN_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="4" width="100" height="30" uuid="ee4c87fb-d65f-41d9-9f5b-9122d7e88a74"/>
+				<textFieldExpression><![CDATA[$F{sum(price)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="4" width="100" height="30" uuid="d0af6114-a0dd-421f-b428-5cdf48924bc9"/>
+				<textFieldExpression><![CDATA[$F{sum(quantity)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
