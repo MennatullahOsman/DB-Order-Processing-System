@@ -100,7 +100,7 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "select * from Users where username=? and password=SHA1(?)";
+			String query = "select * from Users where username=? and user_password=SHA1(?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
@@ -124,7 +124,7 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "update Users(password) " + "set values(SHA1(?)) where username=?";
+			String query = "update Users(user_password) " + "set values(SHA1(?)) where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, username);
@@ -503,75 +503,121 @@ public class DBConnector {
 			String auther) {
 		boolean first = true;
 		String query;
-		if (!auther.equals("")) {
-			query = "select * from Book, Book_Author where Book_Author.ISBN_number and ";
-		} else {
-			query = "select * from Book where ";
-		}
-		if (!title.equals("")) {
-			query += "title like '%" + title + "%'";
-			first = false;
-		}
-		if (!publisher.equals("")) {
-			if (!first)
-				query += " and ";
-			query += "publisher_name like %'" + publisher + "%'";
-			first = false;
-		}
-		if (!category.equals("")) {
-			if (!first)
-				query += " and ";
-			query += "category='" + category + "'";
-			first = false;
-		}
-		String publicationYearString = String.valueOf(publicationYear);
-		if (publicationYear != 0 && publicationYearString.length() == 4) {
-			if (!first)
-				query += " and ";
-			query += "publication_year='" + publicationYearString + "'";
-			first = false;
-		}
-		if (sellingPrice != 0) {
-			if (!first)
-				query += " and ";
-			query += "selling_price=" + String.valueOf(sellingPrice);
-			first = false;
-		}
-		if (!auther.equals("")) {
-			if (!first)
-				query += " and ";
-			query += "Author like '%" + auther + "%'";
-		}
-		try {
-			if (connection == null) {
-				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-			}
-			PreparedStatement preparedStatement = connection.prepareStatement(query);
-			ResultSet result = preparedStatement.executeQuery();
-			while (result.next()) {
-				String ISBN = result.getString("ISBN_number");
-				String authorsQuery = "select * from Book_Authors where ISBN_number=?";
-				preparedStatement = connection.prepareStatement(authorsQuery);
-				preparedStatement.setString(1, ISBN);
-				ResultSet authors = preparedStatement.executeQuery();
-				ArrayList<String> Authers = new ArrayList<String>();
-				while (authors.next()) {
-					Authers.add(authors.getString("Author"));
+		//search by author only
+		if (!auther.equals("") && title.equals("") && publisher.equals("") && category.equals("") && publicationYear == 0
+				&& sellingPrice == 0) {
+			query = "select ISBN_number from Book_Authors where Author like '%" + auther + "%'";
+			try {
+				if (connection == null) {
+					connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 				}
-				PassValues.setAuthers(Authers);
-				PassValues.setTitle(result.getString("title"));
-				PassValues.setPublisher(result.getString("publisher_name"));
-				Date date = result.getDate("publication_year");
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-				PassValues.setPublicationYear(Integer.valueOf(formatter.format(date)));
-				PassValues.setCategory(result.getString("category"));
-				PassValues.setSellingPrice(result.getDouble("selling_price"));
-				PassValues.setAvailableCopies(result.getInt("available_copies"));
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				ResultSet isbnResult = preparedStatement.executeQuery();
+				while (isbnResult.next()) {
+					String ISBN = isbnResult.getString("ISBN_number");
+					//get book data by ISBN
+					String dataQuery = "select * from Book where ISBN_number=?";
+					preparedStatement = connection.prepareStatement(dataQuery);
+					preparedStatement.setString(1, ISBN);
+					ResultSet result = preparedStatement.executeQuery();
+					while(result.next()) {
+						PassValues.setTitle(result.getString("title"));
+						PassValues.setPublisher(result.getString("publisher_name"));
+						Date date = result.getDate("publication_year");
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+						PassValues.setPublicationYear(Integer.valueOf(formatter.format(date)));
+						PassValues.setCategory(result.getString("category"));
+						PassValues.setSellingPrice(result.getDouble("selling_price"));
+						PassValues.setAvailableCopies(result.getInt("available_copies"));
+					}
+					//get book authors by ISBN
+					String authorsQuery = "select * from Book_Authors where ISBN_number=?";
+					preparedStatement = connection.prepareStatement(authorsQuery);
+					preparedStatement.setString(1, ISBN);
+					ResultSet authors = preparedStatement.executeQuery();
+					ArrayList<String> Authers = new ArrayList<String>();
+					while (authors.next()) {
+						Authers.add(authors.getString("Author"));
+					}
+					PassValues.setAuthers(Authers);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				printSQLException(e);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			printSQLException(e);
+		} else {
+			if (!auther.equals("")) {
+				query = "select * from Book, Book_Author where Book_Author.ISBN_number and ";
+			} else {
+				query = "select * from Book where ";
+			}
+			if (!title.equals("")) {
+				query += "title like '%" + title + "%'";
+				first = false;
+			}
+			if (!publisher.equals("")) {
+				if (!first)
+					query += " and ";
+				query += "publisher_name like %'" + publisher + "%'";
+				first = false;
+			}
+			if (!category.equals("")) {
+				if (!first)
+					query += " and ";
+				query += "category='" + category + "'";
+				first = false;
+			}
+			String publicationYearString = String.valueOf(publicationYear);
+			if (publicationYear != 0 && publicationYearString.length() == 4) {
+				if (!first)
+					query += " and ";
+				query += "publication_year='" + publicationYearString + "'";
+				first = false;
+			}
+			if (sellingPrice != 0) {
+				if (!first)
+					query += " and ";
+				query += "selling_price=" + String.valueOf(sellingPrice);
+				first = false;
+			}
+			if (!auther.equals("")) {
+				if (!first)
+					query += " and ";
+				query += "Author like '%" + auther + "%'";
+			}
+			try {
+				if (connection == null) {
+					connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+				}
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				ResultSet result = preparedStatement.executeQuery();
+				while (result.next()) {
+					String ISBN = result.getString("ISBN_number");
+					//get book authors by ISBN
+					String authorsQuery = "select * from Book_Authors where ISBN_number=?";
+					preparedStatement = connection.prepareStatement(authorsQuery);
+					preparedStatement.setString(1, ISBN);
+					ResultSet authors = preparedStatement.executeQuery();
+					ArrayList<String> Authers = new ArrayList<String>();
+					while (authors.next()) {
+						Authers.add(authors.getString("Author"));
+					}
+					PassValues.setAuthers(Authers);
+					PassValues.setTitle(result.getString("title"));
+					PassValues.setPublisher(result.getString("publisher_name"));
+					Date date = result.getDate("publication_year");
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+					PassValues.setPublicationYear(Integer.valueOf(formatter.format(date)));
+					PassValues.setCategory(result.getString("category"));
+					PassValues.setSellingPrice(result.getDouble("selling_price"));
+					PassValues.setAvailableCopies(result.getInt("available_copies"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				printSQLException(e);
+			}
 		}
+		
 	}
 
 	public void checkOut(List<String> ISBN) {

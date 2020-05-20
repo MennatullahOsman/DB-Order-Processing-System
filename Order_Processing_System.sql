@@ -91,5 +91,12 @@ begin
 end;
 DELIMITER;
 
-select * from Users;
+create index title_index on Book(title);
+create index category_index on Book(category);
+create index author_index on Book_authors(Author);
+
+select * from Book_Authors;
+SET GLOBAL log_bin_trust_function_creators = 1;
+select sum(price) as total from sales;
+
 

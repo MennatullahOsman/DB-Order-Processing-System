@@ -146,9 +146,21 @@ public class Registration {
 			} else {
 				DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
 				signuperror.setText("Registration Successful! " + "Welcome " + firstname.getText());
-				thisStage.close();
-				MainPage mainPage = new MainPage();
-				mainPage.showStage();
+				/// open the main page.
+			    final Node source = (Node) event.getSource();
+			    final Stage s = (Stage) source.getScene().getWindow();
+			    s.hide();
+				Parent root1;
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+					root1 = (Parent) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(root1));  
+					stage.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -158,9 +170,11 @@ public class Registration {
 
 		if (usernamein.getText().isEmpty()) {
 			userErrorLogin.setVisible(true);
+			return;
 		}
 		if (passwordin.getText().isEmpty()) {
 			PassErrorLogin.setVisible(true);
+			return;
 		}
 
 		String username = usernamein.getText();
@@ -168,14 +182,28 @@ public class Registration {
 
 		DBConnector DB = new DBConnector();
 		boolean flag = DB.validate(username, password);
-
+//		boolean flag = true;
 		if (!flag) {
 			signinerror.setText("Please enter correct User Name and Password");
+			return;
 		} else {
 			signinerror.setText("Login Successful!");
-			thisStage.close();
-			MainPage mainPage = new MainPage();
-			mainPage.showStage();
+			/// open the main page.
+		    final Node source = (Node) event.getSource();
+		    final Stage s = (Stage) source.getScene().getWindow();
+		    s.hide();
+			Parent root1;
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+				root1 = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setScene(new Scene(root1));  
+				stage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 
