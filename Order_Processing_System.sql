@@ -99,7 +99,4 @@ select * from Book_Authors;
 SET GLOBAL log_bin_trust_function_creators = 1;
 select sum(price) as total from sales;
 
-insert into Users values('emanrafik', 'eman', 'rafik', SHA1('123456'), null, null, null, 'manager');
-insert into Publisher values('Pub');
-insert into Book values('0123456789','title','Pub','2014',50, 'Science', 60, 20, 40);
-insert into Book values('1123456789','title','Pub','2014',100, 'Science', 30, 20, 40);
+
