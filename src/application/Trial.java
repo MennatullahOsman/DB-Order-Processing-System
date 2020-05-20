@@ -1,19 +1,5 @@
 package application;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-
 public class Trial {
 
 	public static void main(String[] args) {
@@ -23,10 +9,10 @@ public class Trial {
 //		 test.add("0123456789");
 //		 test.add("1123456789");
 //		 db.bookSearch("ti", "", "", 0, 0, "");
-		
-		Reports reports = new Reports();
-		reports.totalSales();
-		
+
+		// Reports reports = new Reports();
+		// reports.totalSales();
+
 //		try {
 //			// Compile jrxml file.
 //			JasperReport jasperReport = JasperCompileManager

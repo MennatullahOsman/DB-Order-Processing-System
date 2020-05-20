@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	public void start(Stage primaryStage) throws IOException {
-		MainPage mainPage = new MainPage();
+		Registration mainPage = new Registration();
 		mainPage.showStage();
 	}
 

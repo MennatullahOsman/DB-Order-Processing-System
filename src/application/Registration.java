@@ -1,10 +1,13 @@
 package application;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -13,8 +16,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 //import javafx.stage.Window;
+import javafx.stage.Stage;
 
 public class Registration {
+	private final Stage thisStage;
+
+	public Registration() {
+		thisStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Registration.fxml"));
+			loader.setController(this);
+			thisStage.setScene(new Scene(loader.load()));
+			thisStage.setTitle("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@FXML
 	private TextField firstname;
 
@@ -128,7 +146,9 @@ public class Registration {
 			} else {
 				DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
 				signuperror.setText("Registration Successful! " + "Welcome " + firstname.getText());
-				/// open the main page.
+				thisStage.close();
+				MainPage mainPage = new MainPage();
+				mainPage.showStage();
 			}
 		}
 	}
@@ -153,7 +173,9 @@ public class Registration {
 			signinerror.setText("Please enter correct User Name and Password");
 		} else {
 			signinerror.setText("Login Successful!");
-			/// open the main page.
+			thisStage.close();
+			MainPage mainPage = new MainPage();
+			mainPage.showStage();
 		}
 	}
 
@@ -228,6 +250,10 @@ public class Registration {
 	@FXML
 	void TestUserSignup(KeyEvent event) {
 		userErrorSignup.setVisible(false);
+	}
+
+	public void showStage() {
+		thisStage.showAndWait();
 	}
 
 }
