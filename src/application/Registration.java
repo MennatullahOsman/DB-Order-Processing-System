@@ -153,6 +153,11 @@ public class Registration {
 
 	@FXML
 	public void login(ActionEvent event) throws SQLException {
+		if (usernamein.getText().isEmpty()) {
+			userErrorLogin.setVisible(true);
+			PassErrorLogin.setVisible(true);
+			return;
+		}
 
 		if (usernamein.getText().isEmpty()) {
 			userErrorLogin.setVisible(true);
