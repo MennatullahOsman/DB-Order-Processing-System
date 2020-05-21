@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -152,17 +151,8 @@ public class Registration {
 				final Node source = (Node) event.getSource();
 				final Stage s = (Stage) source.getScene().getWindow();
 				s.hide();
-				Parent root1;
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
-					root1 = (Parent) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setScene(new Scene(root1));
-					stage.show();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				MainPage mainPage = new MainPage();
+				mainPage.showStage();
 			}
 		}
 	}
@@ -194,18 +184,8 @@ public class Registration {
 			final Node source = (Node) event.getSource();
 			final Stage s = (Stage) source.getScene().getWindow();
 			s.hide();
-			Parent root1;
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
-				root1 = (Parent) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setScene(new Scene(root1));
-				stage.show();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			MainPage mainPage = new MainPage();
+			mainPage.showStage();
 		}
 	}
 
