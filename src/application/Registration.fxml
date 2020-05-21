@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="561.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 <padding>
         <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
@@ -25,7 +25,7 @@
       <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="100.0" prefWidth="100.0" />
     </columnConstraints>
    <children>
-       <Label text="First Time here ?" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
+       <Label text="First Time here ?" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.rowSpan="1">
            <font>
                <Font name="Arial" size="24" />
            </font>
@@ -41,41 +41,42 @@
                <Insets bottom="20" left="0" right="0" top="20" />
            </GridPane.margin>
        </Label>
-       <Label text="First Name : " GridPane.columnIndex="3" GridPane.rowIndex="5" />
-       <TextField fx:id="firstname" onKeyPressed="#TestFirstSignup" prefHeight="40" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-       <Label prefHeight="17.0" prefWidth="88.0" text="Email Address : " GridPane.columnIndex="1" GridPane.rowIndex="7" />
-       <TextField fx:id="email" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-       <Label text="Password : " GridPane.columnIndex="3" GridPane.rowIndex="7" />
-       <PasswordField fx:id="passwordup" prefHeight="40" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+       <Label text="First Name : " GridPane.columnIndex="3" GridPane.rowIndex="6" />
+       <TextField fx:id="firstname" onKeyPressed="#TestFirstSignup" prefHeight="40" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+       <Label prefHeight="17.0" prefWidth="88.0" text="Email Address :" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+       <TextField fx:id="email" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+       <Label text="Password : " GridPane.columnIndex="3" GridPane.rowIndex="8" />
+       <PasswordField fx:id="passwordup" prefHeight="40" GridPane.columnIndex="4" GridPane.rowIndex="8" />
       <TextField fx:id="usernamein" onKeyPressed="#TestUserLogIn" prefHeight="40" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <PasswordField fx:id="passwordin" onKeyPressed="#TestPassLogin" prefHeight="40" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-      <Label text="UserName:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="UserName : " GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Password : " GridPane.columnIndex="4" GridPane.rowIndex="1" />
       <Button fx:id="signin" defaultButton="true" onAction="#login" prefHeight="40" prefWidth="100" text="Sign In" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-      <TextField fx:id="lastname" onKeyPressed="#TestSecondSignup" prefHeight="40" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-      <Label text="Last Name : " GridPane.columnIndex="5" GridPane.rowIndex="5" />
-      <TextField fx:id="usernameup" onKeyPressed="#TestUserSignup" prefHeight="40" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Label text="UserName : " GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Label text="Phone :" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-      <TextField fx:id="phone" GridPane.columnIndex="4" GridPane.rowIndex="9" />
-      <Label prefHeight="17.0" prefWidth="106.0" text="Shipping Address : " GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <TextField fx:id="shippingadd" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-      <Button fx:id="signup" defaultButton="true" onAction="#reg" prefHeight="40" prefWidth="100" text="Sign Up" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+      <TextField fx:id="lastname" onKeyPressed="#TestSecondSignup" prefHeight="40" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+      <Label text="Last Name : " GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <TextField fx:id="usernameup" onKeyPressed="#TestUserSignup" prefHeight="40" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Label text="UserName : " GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label text="Phone : " GridPane.columnIndex="3" GridPane.rowIndex="10" />
+      <TextField fx:id="phone" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+      <Label prefHeight="17.0" prefWidth="106.0" text="Shipping Address :" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <TextField fx:id="shippingadd" prefHeight="40.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <Button fx:id="signup" defaultButton="true" onAction="#reg" prefHeight="40" prefWidth="100" text="Sign Up" GridPane.columnIndex="3" GridPane.rowIndex="12" />
       <Text fx:id="userErrorLogin" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Text fx:id="PassErrorLogin" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="     Please enter your password" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-      <Text fx:id="userErrorSignup" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <Text fx:id="firstErrorSignup" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="      What's your 1st name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-      <Text fx:id="secondErrorSignup" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your 2nd name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-      <Text fx:id="PassErrorSignup" fill="RED" onKeyPressed="#TestPassSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="      Please enter your password" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-      <Text fx:id="addressErrorSignup" fill="RED" onKeyPressed="#TestAddressSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter your Address" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-      <Text fx:id="emailErrorSignup" fill="RED" onKeyPressed="#TestEmailSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter your email" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <Text fx:id="phoneErrorSignup" fill="RED" onKeyPressed="#TestPhoneSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="      Please enter your Phone" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.rowIndex="10" />
-      <Text fx:id="signinerror" fill="#e80505" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <Text fx:id="signuperror" fill="#e80505" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+      <Text fx:id="userErrorSignup" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Text fx:id="firstErrorSignup" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="      What's your 1st name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+      <Text fx:id="secondErrorSignup" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your 2nd name?" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+      <Text fx:id="PassErrorSignup" fill="RED" onKeyPressed="#TestPassSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="      Please enter your password" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+      <Text fx:id="addressErrorSignup" fill="RED" onKeyPressed="#TestAddressSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter your Address" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Text fx:id="emailErrorSignup" fill="RED" onKeyPressed="#TestEmailSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter your email" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <Text fx:id="phoneErrorSignup" fill="RED" onKeyPressed="#TestPhoneSignup" strokeType="OUTSIDE" strokeWidth="0.0" text="      Please enter your Phone" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="5" GridPane.rowIndex="11" />
+      <Text fx:id="signinerror" fill="#e80505" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Text fx:id="signuperror" fill="#e80505" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="4" GridPane.rowIndex="13" />
    </children>
   <rowConstraints>
     <RowConstraints vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
@@ -86,8 +87,9 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints />
-      <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
   </rowConstraints>
   
 </GridPane>

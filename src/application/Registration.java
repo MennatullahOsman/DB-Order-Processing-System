@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -146,13 +145,8 @@ public class Registration {
 				signuperror.setText("Please enter another username as this user name already exist!");
 			} else {
 				DB.insertRecord(userName, password, firstName, lastName, emailadd, phonen, shippingadds);
-				signuperror.setText("Registration Successful! " + "Welcome " + firstname.getText());
-				/// open the main page.
-				final Node source = (Node) event.getSource();
-				final Stage s = (Stage) source.getScene().getWindow();
-				s.hide();
-				MainPage mainPage = new MainPage();
-				mainPage.showStage();
+				thisStage.close();
+				PassValues.setClosedNot(true);
 			}
 		}
 	}
@@ -179,14 +173,10 @@ public class Registration {
 			signinerror.setText("Please enter correct User Name and Password");
 			return;
 		} else {
-			signinerror.setText("Login Successful!");
-			/// open the main page.
-			final Node source = (Node) event.getSource();
-			final Stage s = (Stage) source.getScene().getWindow();
-			s.hide();
-			MainPage mainPage = new MainPage();
-			mainPage.showStage();
+			thisStage.close();
+			PassValues.setClosedNot(true);
 		}
+
 	}
 
 	public static void infoBox(String infoMessage, String headerText, String title) {
