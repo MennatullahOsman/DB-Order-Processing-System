@@ -124,6 +124,7 @@ public class DBConnector {
 				PassValues.setPhone(resultSet.getString("user_phone"));
 				PassValues.setEmail(resultSet.getString("user_email"));
 				PassValues.setPrivilage(resultSet.getString("user_privilege"));
+				DBConnector.password = password;
 				return true;
 			}
 		} catch (SQLException e) {
@@ -137,7 +138,7 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "update Users(user_password) " + "set values(SHA1(?)) where username=?";
+			String query = "update Users set user_password = SHA1(?) where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, PassValues.getUserName());
@@ -154,7 +155,7 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "update Users set firsr_name=?, second_name=?, user_phone=?, user_address=?, "
+			String query = "update Users set first_name=?, second_name=?, user_phone=?, user_address=?, "
 					+ "user_email=? where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, firstname);

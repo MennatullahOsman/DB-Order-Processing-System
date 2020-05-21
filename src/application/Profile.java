@@ -135,7 +135,7 @@ public class Profile extends Pane {
 	void changepass(ActionEvent event) {
 		DBConnector db = DBConnector.getInstance();
 		if (!oldpassword.getText().isEmpty()) {
-			if (oldpassword.getText() == db.getpass()) {
+			if (oldpassword.getText().equals(db.getpass())) {
 				if (!newpassword.getText().isEmpty()) {
 					db.editPassword(newpassword.getText());
 				} else {
