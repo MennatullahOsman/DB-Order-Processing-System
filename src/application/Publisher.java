@@ -66,13 +66,14 @@ public class Publisher {
 			error.setText("Error: Please enter publisher name.");
 			return;
 		}
-		if (addresses.get(addresses.size() - 1) != address.getText() && !address.getText().isEmpty()) {
+		if (addresses.isEmpty()
+				|| addresses.get(addresses.size() - 1) != address.getText() && !address.getText().isEmpty()) {
 			addresses.add(address.getText());
 		} else if (address.getText().isEmpty() && addresses.size() == 0) {
 			error.setText("Error: Please enter at least one address");
 			return;
 		}
-		if (phones.get(phones.size() - 1) != phone.getText() && !phone.getText().isEmpty()) {
+		if (phones.isEmpty() || phones.get(phones.size() - 1) != phone.getText() && !phone.getText().isEmpty()) {
 			phones.add(phone.getText());
 		} else if (phone.getText().isEmpty() && phones.size() == 0) {
 			error.setText("Error: Please enter at least one phone");

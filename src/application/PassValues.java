@@ -40,6 +40,8 @@ public class PassValues {
 	private static String expiredDate = "";
 	private static String CCard = "";
 	private static String phone = "";
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	private static Boolean closed_not = false;
 
 	private static String WhichBtn;// add to or delete from cart
 
@@ -317,6 +319,14 @@ public class PassValues {
 		return phone;
 	}
 
+	public static void setPrivilage(String privilage_set) {
+		privilage = privilage_set;
+	}
+
+	public static String getprivilage() {
+		return privilage;
+	}
+
 	public static void setCCard(String CCard_set) {
 		CCard = CCard_set;
 	}
@@ -331,5 +341,14 @@ public class PassValues {
 
 	public static String getExpiredDate() {
 		return expiredDate;
+	}
+
+///////////////////////////////////////////////
+	public static void setClosedNot(Boolean closed_not_set) {
+		closed_not = closed_not_set;
+	}
+
+	public static Boolean getClosedNot() {
+		return closed_not;
 	}
 }
