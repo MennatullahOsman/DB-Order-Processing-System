@@ -68,7 +68,6 @@
             <TextField fx:id="thershold" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6" />
             <TextField fx:id="title" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Text fx:id="notification" fill="#1f0fcf" strokeType="OUTSIDE" strokeWidth="0.0" text="write every Auther in a single line." visible="false" wrappingWidth="308.3765869140625" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <Button fx:id="cancel" mnemonicParsing="false" onAction="#closedialog" text="Cancel" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="13" />
             <Button fx:id="add" mnemonicParsing="false" onAction="#addnew" text="ADD" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="13" />
             <Button fx:id="getdata" mnemonicParsing="false" onAction="#getdata" text="Get Data" visible="false" GridPane.columnIndex="3" />
             <Button fx:id="modify" mnemonicParsing="false" onAction="#modifydata" text="Modify" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="13" />

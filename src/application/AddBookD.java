@@ -102,9 +102,6 @@ public class AddBookD extends Pane {
 	private Text notification;
 
 	@FXML
-	private Button cancel;
-
-	@FXML
 	Button add;
 
 	@FXML
@@ -254,7 +251,6 @@ public class AddBookD extends Pane {
 		thershold.setVisible(true);
 		title.setVisible(true);
 		notification.setVisible(true);
-		cancel.setVisible(true);
 		orderQ.setVisible(true);
 		copies.setVisible(true);
 		Authers.setVisible(true);
