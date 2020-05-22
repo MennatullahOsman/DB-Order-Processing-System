@@ -52,6 +52,7 @@ public class AddBookD extends Pane {
 	@FXML
 	TextField copies;
 	/// add label of copies and set not visable
+	@FXML
 	private TextField orderQ;
 
 	@FXML
