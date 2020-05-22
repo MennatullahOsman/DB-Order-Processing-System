@@ -296,7 +296,7 @@ public class Orders extends Pane {
 			quantityerrormsg.setText("Please enter the quantity");
 			quantityerrormsg.setVisible(true);
 			return;
-		} else if (isNumeric(quantity.getText())) {
+		} else if (!isNumeric(quantity.getText())) {
 			quantityerrormsg.setText("Please enter valid number for quantity");
 			quantityerrormsg.setVisible(true);
 			return;

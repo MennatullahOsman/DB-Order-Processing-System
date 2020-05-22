@@ -456,7 +456,7 @@ public class DBConnector {
 				String firstName = result.getString("first_name");
 				res += "First Name: " + firstName + "\n";
 				userdata.add(firstName);
-				String secondName = result.getString("last_name");
+				String secondName = result.getString("second_name");
 				res += "Second Name: " + secondName + "\n";
 				userdata.add(secondName);
 				String phone = result.getString("user_phone");
