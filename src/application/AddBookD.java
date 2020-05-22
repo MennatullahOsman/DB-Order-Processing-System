@@ -191,9 +191,9 @@ public class AddBookD extends Pane {
 				pyear.setText(dataToModify.get(2));
 				price.setText(dataToModify.get(3));
 				category.setText(dataToModify.get(4));
+				copies.setText(dataToModify.get(7));
 				thershold.setText(dataToModify.get(5));
 				orderQ.setText(dataToModify.get(6));
-				copies.setText(dataToModify.get(7));
 				Authers.setText(dataToModify.get(8));
 				currentISBN = isbn.getText();
 			} else {
