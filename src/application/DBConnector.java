@@ -642,7 +642,6 @@ public class DBConnector {
 				callableStatement.setString(2, s);
 				callableStatement.executeQuery();
 			}
-			System.out.println("commited");
 			connection.commit();
 			connection.setAutoCommit(true);
 		} catch (SQLException e) {
