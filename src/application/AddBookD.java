@@ -162,9 +162,15 @@ public class AddBookD extends Pane {
 		for (String line : Authers.getText().split("\\n")) {
 			authers.add(line);
 		}
-		if (!db.bookexist(isbn.getText())) {
-			db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-					price.getText(), thershold.getText(), copies.getText(), orderQ.getText(), authers);
+		if (db.publisherExists(pname.getText())) {
+			if (!db.bookexist(isbn.getText())) {
+				db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
+						price.getText(), thershold.getText(), copies.getText(), orderQ.getText(), authers);
+			} else {
+				error.setText("ERROR: There is a book with this ISBN!");
+			}
+		} else {
+			error.setText("ERROR: There is no publisher with that name please add him first");
 		}
 	}
 
@@ -209,6 +215,7 @@ public class AddBookD extends Pane {
 
 	@FXML
 	void modifydata(ActionEvent event) {
+		DBConnector db = DBConnector.getInstance();
 		if (currentISBN == null) {
 			/// error please enter isbn and get data first
 			error.setText("ERROR: Please enter the ISBN and click on get data first");
@@ -223,12 +230,13 @@ public class AddBookD extends Pane {
 			} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText())) {
 				/// error please enter numerical values for threshold, price and order quantity.
 				error.setText("ERROR: Please enter numerical values for threshold, price and order quantity.");
+			} else if (!db.publisherExists(pname.getText())) {
+				error.setText("ERROR: There is no publisher with that name please add him first");
 			} else {
 				List<String> authers = new ArrayList<String>();
 				for (String line : Authers.getText().split("\\n")) {
 					authers.add(line);
 				}
-				DBConnector db = DBConnector.getInstance();
 				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
 						price.getText(), thershold.getText(), orderQ.getText(), authers);
 			}
