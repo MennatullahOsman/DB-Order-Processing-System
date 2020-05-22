@@ -1,6 +1,10 @@
 package application;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -117,29 +121,65 @@ public class MainPage {
 		grid.add(CardError, 0, 1);
 		grid.add(new Label("Expired Date:"), 0, 2);
 		grid.add(Date, 1, 2);
-
+		grid.add(new Label("write data in the follwing form year/month/day"), 1, 3);
 		Node OKButton = dialog.getDialogPane().lookupButton(OK);
 		OKButton.setDisable(true);
 		CardError.setVisible(false);
+
 		Card.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (!Card.getText().matches("\\d*")) {
-				OKButton.setDisable(true);
 				CardError.setVisible(true);
+				cardCheck = false;
 			} else {
 				if (!Card.getText().matches("") && checkLuhn(Card.getText())) {
-					OKButton.setDisable(false);
-				} else if (Card.getText().matches("")) {
-					OKButton.setDisable(true);
 					CardError.setVisible(false);
+					cardCheck = true;
+				} else if (Card.getText().matches("")) {
+					CardError.setVisible(false);
+					cardCheck = false;
 				} else {
-					OKButton.setDisable(true);
 					CardError.setVisible(true);
+					cardCheck = false;
 				}
+			}
+			if (dateCheck && cardCheck) {
+				OKButton.setDisable(false);
+			} else {
+				OKButton.setDisable(true);
+			}
+		});
+
+		Date.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!Date.getText().equals("")) {
+				Date toDayDate = new Date();
+				toDayDate = Calendar.getInstance().getTime();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				Date enteredDate = new Date();
+				try {
+					enteredDate = sdf.parse(Date.getText());
+					if (enteredDate.after(toDayDate)) {
+						CardError.setVisible(false);
+						dateCheck = true;
+					} else {
+						CardError.setVisible(true);
+						dateCheck = false;
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else {
+				CardError.setVisible(false);
+			}
+			if (dateCheck && cardCheck) {
+				OKButton.setDisable(false);
+			} else {
+				OKButton.setDisable(true);
 			}
 		});
 
 		dialog.getDialogPane().setContent(grid);
-
 		Platform.runLater(() -> Card.requestFocus());
 
 		dialog.setResultConverter(dialogButton -> {
@@ -192,5 +232,8 @@ public class MainPage {
 		userName.setText("Hi, " + PassValues.getUserName());
 
 	}
+
+	private static Boolean cardCheck = false;
+	private static Boolean dateCheck = false;
 
 }
