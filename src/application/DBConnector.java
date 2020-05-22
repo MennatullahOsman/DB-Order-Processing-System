@@ -148,8 +148,7 @@ public class DBConnector {
 		}
 	}
 
-	public void editData(String firstname, String lastname, String email, String phone, String shippingadd, String cc,
-			String edate) {
+	public void editData(String firstname, String lastname, String email, String phone, String shippingadd) {
 		try {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -311,24 +310,16 @@ public class DBConnector {
 			ResultSet result = preparedStatement.executeQuery();
 			List<String> dataToModify = new ArrayList<String>();
 			if (result.next()) {
-				String title = result.getString("title");
-				dataToModify.add(title);
-				String publisherName = result.getString("publisher_name");
-				dataToModify.add(publisherName);
+				dataToModify.add(result.getString("title"));
+				dataToModify.add(result.getString("publisher_name"));
 				Date date = result.getDate("publication_year");
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-				String publicationYear = formatter.format(date);
-				dataToModify.add(publicationYear);
-				double sellingPrice = result.getDouble("selling_price");
-				dataToModify.add(String.valueOf(sellingPrice));
-				String category = result.getString("category");
-				dataToModify.add(category);
-				// int availableCopies = result.getInt("available_copies");
-				// dataToModify.add(String.valueOf(availableCopies));
-				int threshold = result.getInt("threshold");
-				dataToModify.add(String.valueOf(threshold));
-				int orderQuantity = result.getInt("order_quantity");
-				dataToModify.add(String.valueOf(orderQuantity));
+				dataToModify.add(formatter.format(date));
+				dataToModify.add(String.valueOf(result.getDouble("selling_price")));
+				dataToModify.add(result.getString("category"));
+				dataToModify.add(String.valueOf(result.getInt("available_copies")));
+				dataToModify.add(String.valueOf(result.getInt("threshold")));
+				dataToModify.add(String.valueOf(result.getInt("order_quantity")));
 			}
 			/** get book authors from book authors relation **/
 			preparedStatement = connection.prepareStatement(selectFromBookAuthorsQuery);
@@ -343,7 +334,7 @@ public class DBConnector {
 				listString += s + ",";
 			}
 			dataToModify.add(listString);
-
+			PassValues.setDataToModify(dataToModify);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			printSQLException(e);

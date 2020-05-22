@@ -42,6 +42,7 @@ public class MainPage {
 
 	@FXML
 	private void SearchAction(ActionEvent event) {
+		PassValues.clearAllSearch();
 		if (!ParentPane.getChildren().isEmpty()) {
 			ParentPane.getChildren().remove(0);
 		}
@@ -87,7 +88,7 @@ public class MainPage {
 	@FXML
 	void checkOutAction(ActionEvent event) throws IOException {
 		ParentPane.getChildren().remove(0);
-		PassValues.clearAll();
+		PassValues.clearAllCart();
 		CheckOut.setVisible(false);
 		DBConnector.getInstance().checkOut(PassValues.getBookCartISBN());
 	}

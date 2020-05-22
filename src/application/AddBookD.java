@@ -120,7 +120,7 @@ public class AddBookD extends Pane {
 	private Label QuantityLabel;
 
 	@FXML
-	TextField copies;
+	private TextField copies;
 
 	@FXML
 	private TextField orderQ;
@@ -189,22 +189,15 @@ public class AddBookD extends Pane {
 				/// get data from pass data and put it in
 				/// ctitle,cpname,cpyear,ccat,cthr,cprice,cauthors and text fields
 				dataToModify = PassValues.getDataToModify();
-				ctitle = dataToModify.get(0);
-				title.setText(ctitle);
-				cpname = dataToModify.get(1);
-				pname.setText(cpname);
-				cpyear = dataToModify.get(2);
-				pyear.setText(cpyear);
-				cprice = dataToModify.get(3);
-				price.setText(cprice);
-				ccat = dataToModify.get(4);
-				category.setText(ccat);
-				cthr = dataToModify.get(5);
-				thershold.setText(cthr);
-				cOQ = dataToModify.get(6);
-				orderQ.setText(cOQ);
-				cauthors = dataToModify.get(7);
-				Authers.setText(cauthors);
+				title.setText(dataToModify.get(0));
+				pname.setText(dataToModify.get(1));
+				pyear.setText(dataToModify.get(2));
+				price.setText(dataToModify.get(3));
+				category.setText(dataToModify.get(4));
+				thershold.setText(dataToModify.get(5));
+				orderQ.setText(dataToModify.get(6));
+				copies.setText(dataToModify.get(7));
+				Authers.setText(dataToModify.get(8));
 				currentISBN = isbn.getText();
 			} else {
 				/// error this book not found
@@ -265,7 +258,6 @@ public class AddBookD extends Pane {
 		orderQ.setVisible(true);
 		copies.setVisible(true);
 		Authers.setVisible(true);
-
 	}
 
 	private static boolean isNumeric(String str) {

@@ -36,9 +36,7 @@ public class PassValues {
 	private static String userName = "";
 	private static String email = "";
 	private static String address = "";
-	private static String privilage = "";
-	private static String expiredDate = "";
-	private static String CCard = "";
+	private static String privilege = "";
 	private static String phone = "";
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	private static Boolean closed_not = false;
@@ -206,7 +204,7 @@ public class PassValues {
 		return bookCartCategory;
 	}
 
-	public static void clearAll() {
+	public static void clearAllCart() {
 		bookCartPublisher.clear();
 		bookCartTitle.clear();
 		bookCartCategory.clear();
@@ -214,6 +212,16 @@ public class PassValues {
 		bookCartISBN.clear();
 		bookCartSellingPrice.clear();
 		bookCartAuthers.clear();
+	}
+
+	public static void clearAllSearch() {
+		Publisher.clear();
+		Title.clear();
+		Category.clear();
+		PublicationYear.clear();
+		ISBN.clear();
+		SellingPrice.clear();
+		Authers.clear();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -320,27 +328,11 @@ public class PassValues {
 	}
 
 	public static void setPrivilage(String privilage_set) {
-		privilage = privilage_set;
+		privilege = privilage_set;
 	}
 
 	public static String getprivilage() {
-		return privilage;
-	}
-
-	public static void setCCard(String CCard_set) {
-		CCard = CCard_set;
-	}
-
-	public static String getCCard() {
-		return CCard;
-	}
-
-	public static void setExpiredDate(String expiredDate_set) {
-		expiredDate = expiredDate_set;
-	}
-
-	public static String getExpiredDate() {
-		return expiredDate;
+		return privilege;
 	}
 
 ///////////////////////////////////////////////

@@ -1,22 +1,14 @@
 package application;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -35,10 +27,8 @@ public class Profile extends Pane {
 			throw new RuntimeException(exception);
 		}
 		main.ParentPane.getChildren().add(root);
+		viewData();
 	}
-
-	@FXML
-	private TextField cc;
 
 	@FXML
 	private TextField firstname;
@@ -59,9 +49,6 @@ public class Profile extends Pane {
 	private PasswordField newpassword;
 
 	@FXML
-	private TextField edate;
-
-	@FXML
 	private TextField email;
 
 	@FXML
@@ -73,8 +60,8 @@ public class Profile extends Pane {
 	private Text errorpass;
 	@FXML
 	private Text errordata;
-	private String first, last, emailadd, phonenum, shipadd, ccn, ed;
-	private List<String> userdata = new ArrayList<String>();;
+
+	private String first, last, emailadd, phonenum, shipadd;
 
 	@FXML
 	void editData(ActionEvent event) {
@@ -103,68 +90,18 @@ public class Profile extends Pane {
 			phonenum = phone.getText();
 		}
 		shipadd = shippingadd.getText();
-		if (!cc.getText().isEmpty() && !isNumeric(cc.getText())) {
-			errordata.setText("Please enter a valid cc number");
-			return;
-		} else {
-			ccn = cc.getText();
-		}
-		ed = edate.getText();
+
 		DBConnector db = DBConnector.getInstance();
-		db.editData(first, last, emailadd, phonenum, shipadd, ccn, ed);
+		db.editData(first, last, emailadd, phonenum, shipadd);
 		mainPage.ParentPane.getChildren().remove(root);
 	}
 
 	void viewData() {
-		/// WANT TO CALL IT WHEN FRAME OPEND DIRECTLY
-		DBConnector db = DBConnector.getInstance();
-		db.getuserdata(db.getcurrentusername());
-		userdata = PassValues.getUserdata();
-		first = userdata.get(0);
-		last = userdata.get(1);
-		phonenum = userdata.get(2);
-		emailadd = userdata.get(3);
-		shipadd = userdata.get(4); // 5 is the privilege we don't need it here
-		ccn = userdata.get(6);
-		ed = userdata.get(7);
-
-		firstname.setText(first);
-		lastname.setText(last);
-		cc.setText(ccn);
-		email.setText(emailadd);
-		phone.setText(phonenum);
-		shippingadd.setText(shipadd);
-		edate.setText(ed);
-	}
-
-	@FXML
-	void MyInformationAction(ActionEvent event) {
-		Dialog<String> dialog = new Dialog<>();
-		ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType);
-		GridPane grid = new GridPane();
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
-		grid.add(new Label("UserName:"), 0, 0);
-		grid.add(new Label(PassValues.getUserName()), 1, 0);
-		grid.add(new Label("FirstName:"), 0, 1);
-		grid.add(new Label(PassValues.getFirstName()), 1, 1);
-		grid.add(new Label("SecondName:"), 0, 2);
-		grid.add(new Label(PassValues.getSecondName()), 1, 2);
-		grid.add(new Label("Phone:"), 0, 3);
-		grid.add(new Label(PassValues.getPhone()), 1, 3);
-		grid.add(new Label("Address:"), 0, 4);
-		grid.add(new Label(PassValues.getAddress()), 1, 4);
-		grid.add(new Label("Email:"), 0, 5);
-		grid.add(new Label(PassValues.getEmail()), 1, 5);
-		grid.add(new Label("Credit Card:"), 0, 6);
-		grid.add(new Label(PassValues.getCCard()), 1, 6);
-		grid.add(new Label("Expired Date:"), 0, 7);
-		grid.add(new Label(PassValues.getExpiredDate()), 1, 7);
-		dialog.getDialogPane().setContent(grid);
-		dialog.showAndWait();
-
+		firstname.setText(PassValues.getFirstName());
+		lastname.setText(PassValues.getSecondName());
+		email.setText(PassValues.getEmail());
+		phone.setText(PassValues.getPhone());
+		shippingadd.setText(PassValues.getAddress());
 	}
 
 	@FXML
