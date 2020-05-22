@@ -31,9 +31,12 @@ public class Manager extends Pane {
 		if (!mangpane.getChildren().isEmpty()) {
 			mangpane.getChildren().remove(0);
 		}
-		AddBookD frame = new AddBookD(this, "Add");
+		AddBookD frame = new AddBookD(this);
 		// frame.setFlag(true);
-		// frame.copies.setVisible(true);
+		frame.add.setVisible(true);
+		frame.modify.setVisible(false);
+		frame.getdata.setVisible(false);
+		frame.copies.setVisible(true);
 	}
 
 	@FXML
@@ -42,9 +45,13 @@ public class Manager extends Pane {
 		if (!mangpane.getChildren().isEmpty()) {
 			mangpane.getChildren().remove(0);
 		}
-		AddBookD frame = new AddBookD(this, "Modify");
-		// frame.copies.setVisible(false);
-
+		AddBookD frame = new AddBookD(this);
+		// frame.setFlag(false);
+		frame.add.setVisible(false);
+		frame.modify.setVisible(true);
+		frame.getdata.setVisible(true);
+		frame.copies.setVisible(false);
+		/// label of copies set visible false
 	}
 
 	@FXML
@@ -75,11 +82,11 @@ public class Manager extends Pane {
 	private void initialize() {
 	}
 
-	@FXML
-	void reports(ActionEvent event) {
+    @FXML
+    void reports(ActionEvent event) {
 		if (!mangpane.getChildren().isEmpty()) {
 			mangpane.getChildren().remove(0);
 		}
 		Reports frame = new Reports(this);
-	}
+    }
 }

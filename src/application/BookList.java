@@ -40,6 +40,10 @@ public class BookList {
 			throw new RuntimeException(exception);
 		}
 		mainPage.ParentPane.getChildren().add(root);
+		if (PassValues.getWhichBtn().equals("Delete From Cart")) {
+			viewMyCart();
+		}
+		viewBooks(0);
 	}
 
 	@FXML
@@ -256,7 +260,6 @@ public class BookList {
 				PassValues.setBookCartCategory(Categories.get(index), true);
 				PassValues.setBookCartPublicationYear(Publication_year.get(index), true);
 				PassValues.setBookCartSellingPrice(Selling_price.get(index), true);
-				PassValues.setBookCartAuthers(Authers.get(index), true);
 			} else {
 				int index = counter + Integer.parseInt(m.group(2));
 				PassValues.setBookCartTitle(Titles.get(index), false);// false for remove
@@ -265,7 +268,6 @@ public class BookList {
 				PassValues.setBookCartCategory(Categories.get(index), false);
 				PassValues.setBookCartPublicationYear(Publication_year.get(index), false);
 				PassValues.setBookCartSellingPrice(Selling_price.get(index), false);
-				PassValues.setBookCartAuthers(Authers.get(index), false);
 			}
 		}
 		viewBooks(counter);
@@ -278,17 +280,6 @@ public class BookList {
 		Publication_year = PassValues.getBookCartPublicationYear();
 		ISBN = PassValues.getBookCartISBN();
 		Selling_price = PassValues.getBookCarttSellingPrice();
-		Authers = PassValues.getBookCartAuthers();
-	}
-
-	private void viewSearchResult() {
-		Publishers = PassValues.getPublisher();
-		Titles = PassValues.getTitle();
-		Categories = PassValues.getCategory();
-		Publication_year = PassValues.getPublicationYear();
-		ISBN = PassValues.getISBN();
-		Selling_price = PassValues.getSellingPrice();
-		Authers = PassValues.getAuthers();
 	}
 
 	@FXML
@@ -309,14 +300,6 @@ public class BookList {
 			grid.add(new Label("Title:"), 0, 0);
 			grid.add(new Label(Titles.get(index)), 1, 0);
 			grid.add(new Label("Auther(s):"), 0, 1);
-			String combineAuthers = "";
-			for (int i = 0; i < Authers.get(index).size(); i++) {
-				combineAuthers += Authers.get(index).get(i);
-				if (i < Authers.get(index).size() - 1) {
-					combineAuthers += ", ";
-				}
-			}
-			grid.add(new Label(combineAuthers), 1, 1);
 			grid.add(new Label("Publisher:"), 0, 2);
 			grid.add(new Label(Publishers.get(index)), 1, 2);
 			grid.add(new Label("Publication year:"), 0, 3);
@@ -332,12 +315,13 @@ public class BookList {
 
 	@FXML
 	public void initialize() {
-		if (PassValues.getWhichBtn().equals("Delete From Cart")) {
-			viewMyCart();
-		} else {
-			viewSearchResult();
-		}
-		viewBooks(0);
+		Publishers = PassValues.getPublisher();
+		Titles = PassValues.getTitle();
+		Categories = PassValues.getCategory();
+		Publication_year = PassValues.getPublicationYear();
+		ISBN = PassValues.getISBN();
+		Selling_price = PassValues.getSellingPrice();
+		Authers = PassValues.getAuthers();
 		Next.setDisable(true);
 		Previous.setDisable(true);
 	}

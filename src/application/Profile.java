@@ -8,15 +8,9 @@ import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -138,40 +132,10 @@ public class Profile extends Pane {
 	}
 
 	@FXML
-	void MyInformationAction(ActionEvent event) {
-		Dialog<String> dialog = new Dialog<>();
-		ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType);
-		GridPane grid = new GridPane();
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
-		grid.add(new Label("UserName:"), 0, 0);
-		grid.add(new Label(PassValues.getUserName()), 1, 0);
-		grid.add(new Label("FirstName:"), 0, 1);
-		grid.add(new Label(PassValues.getFirstName()), 1, 1);
-		grid.add(new Label("SecondName:"), 0, 2);
-		grid.add(new Label(PassValues.getSecondName()), 1, 2);
-		grid.add(new Label("Phone:"), 0, 3);
-		grid.add(new Label(PassValues.getPhone()), 1, 3);
-		grid.add(new Label("Address:"), 0, 4);
-		grid.add(new Label(PassValues.getAddress()), 1, 4);
-		grid.add(new Label("Email:"), 0, 5);
-		grid.add(new Label(PassValues.getEmail()), 1, 5);
-		grid.add(new Label("Credit Card:"), 0, 6);
-		grid.add(new Label(PassValues.getCCard()), 1, 6);
-		grid.add(new Label("Expired Date:"), 0, 7);
-		grid.add(new Label(PassValues.getExpiredDate()), 1, 7);
-		dialog.getDialogPane().setContent(grid);
-		dialog.showAndWait();
-
-	}
-
-	@FXML
 	void changepass(ActionEvent event) {
 		DBConnector db = DBConnector.getInstance();
 		if (!oldpassword.getText().isEmpty()) {
-			if (oldpassword.getText().equals(db.getpass())) {
+			if (oldpassword.getText() == db.getpass()) {
 				if (!newpassword.getText().isEmpty()) {
 					db.editPassword(newpassword.getText());
 				} else {

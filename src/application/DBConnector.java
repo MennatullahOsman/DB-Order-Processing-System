@@ -16,7 +16,7 @@ public class DBConnector {
 	private static DBConnector single_instance = null;
 	private static Connection connection;
 
-	// private static String username;
+	private static String username;
 	private static String password;
 	// Replace below database url, username and password with your actual database
 	// credentials
@@ -33,7 +33,7 @@ public class DBConnector {
 
 	public static DBConnector getInstance() {
 		if (single_instance == null) {
-			// PassValues.setUserName("emanrafik");
+			username = "emanrafik";
 			single_instance = new DBConnector();
 		}
 		if (connection == null) {
@@ -56,6 +56,7 @@ public class DBConnector {
 			String query = "select username from Users where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, username);
+			System.out.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			/// CHANGE CONDITION TO COUNT IF NOT 0 THEN TRUE ELSE THEN FALSE.
 			if (resultSet.next()) {
@@ -85,14 +86,7 @@ public class DBConnector {
 			preparedStatement.setString(7, email);
 
 			preparedStatement.executeUpdate();
-
-			PassValues.setUserName(userName);
-			PassValues.setFirstName(firstName);
-			PassValues.setSecondName(lastName);
-			PassValues.setPhone(phone);
-			PassValues.setAddress(shippingadd);
-			PassValues.setEmail(email);
-
+			username = userName;
 			DBConnector.password = password;
 		} catch (SQLException e) {
 			// print SQL exception information
@@ -116,14 +110,7 @@ public class DBConnector {
 			// Profile p = new Profile();
 			// p.setData();
 			if (resultSet.next()) {
-				PassValues.setUserName(resultSet.getString("username"));
-				PassValues.setAddress(resultSet.getString("user_address"));
-				PassValues.setFirstName(resultSet.getString("first_name"));
-				PassValues.setSecondName(resultSet.getString("second_name"));
-				PassValues.setPhone(resultSet.getString("user_phone"));
-				PassValues.setEmail(resultSet.getString("user_email"));
-				PassValues.setPrivilage(resultSet.getString("user_privilege"));
-				DBConnector.password = password;
+				DBConnector.username = username;
 				return true;
 			}
 		} catch (SQLException e) {
@@ -137,10 +124,10 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "update Users set user_password = SHA1(?) where username=?";
+			String query = "update Users(user_password) " + "set values(SHA1(?)) where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, password);
-			preparedStatement.setString(2, PassValues.getUserName());
+			preparedStatement.setString(2, username);
 			preparedStatement.executeUpdate();
 			DBConnector.password = password;
 		} catch (SQLException e) {
@@ -154,7 +141,7 @@ public class DBConnector {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 			}
-			String query = "update Users set first_name=?, second_name=?, user_phone=?, user_address=?, "
+			String query = "update Users set firsr_name=?, second_name=?, user_phone=?, user_address=?, "
 					+ "user_email=? where username=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, firstname);
@@ -162,7 +149,7 @@ public class DBConnector {
 			preparedStatement.setString(3, phone);
 			preparedStatement.setString(4, shippingadd);
 			preparedStatement.setString(5, email);
-			preparedStatement.setString(6, PassValues.getUserName());
+			preparedStatement.setString(6, username);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -231,7 +218,7 @@ public class DBConnector {
 	}
 
 	public void addBook(String isbn, String title, String pname, String pyear, String category, String price,
-			String threashold, String availableCopies, String orderQuantity, List<String> authors) {
+			String threashold, String availableCopies, String orderQuantity, String authors) {
 		/// to db
 		try {
 			if (connection == null) {
@@ -252,8 +239,8 @@ public class DBConnector {
 			preparedStatement.executeUpdate();
 
 			String authorsQuery = "insert into Book_Authors values(?,?)";
-
-			for (String a : authors) {
+			String[] authorsArray = authors.split(",");
+			for (String a : authorsArray) {
 				preparedStatement = connection.prepareStatement(authorsQuery);
 				preparedStatement.setString(1, isbn);
 				preparedStatement.setString(2, a.trim());
@@ -351,7 +338,7 @@ public class DBConnector {
 	}
 
 	public void modifybook(String isbn, String title, String pname, String pyear, String category, String price,
-			String threashold, String orderQuantity, List<String> authors) {
+			String threashold, String orderQuantity, String authors) {
 		/// db
 		try {
 			if (connection == null) {
@@ -377,7 +364,8 @@ public class DBConnector {
 			preparedStatement.executeUpdate();
 
 			String authorsQuery = "insert into Book_Authors values(?,?)";
-			for (String a : authors) {
+			String[] authorsArray = authors.split(",");
+			for (String a : authorsArray) {
 				preparedStatement = connection.prepareStatement(authorsQuery);
 				preparedStatement.setString(1, isbn);
 				preparedStatement.setString(2, a.trim());
@@ -468,7 +456,7 @@ public class DBConnector {
 				String firstName = result.getString("first_name");
 				res += "First Name: " + firstName + "\n";
 				userdata.add(firstName);
-				String secondName = result.getString("second_name");
+				String secondName = result.getString("last_name");
 				res += "Second Name: " + secondName + "\n";
 				userdata.add(secondName);
 				String phone = result.getString("user_phone");
@@ -515,9 +503,9 @@ public class DBConnector {
 			String auther) {
 		boolean first = true;
 		String query;
-		// search by author only
-		if (!auther.equals("") && title.equals("") && publisher.equals("") && category.equals("")
-				&& publicationYear == 0 && sellingPrice == 0) {
+		//search by author only
+		if (!auther.equals("") && title.equals("") && publisher.equals("") && category.equals("") && publicationYear == 0
+				&& sellingPrice == 0) {
 			query = "select ISBN_number from Book_Authors where Author like '%" + auther + "%'";
 			try {
 				if (connection == null) {
@@ -527,12 +515,12 @@ public class DBConnector {
 				ResultSet isbnResult = preparedStatement.executeQuery();
 				while (isbnResult.next()) {
 					String ISBN = isbnResult.getString("ISBN_number");
-					// get book data by ISBN
+					//get book data by ISBN
 					String dataQuery = "select * from Book where ISBN_number=?";
 					preparedStatement = connection.prepareStatement(dataQuery);
 					preparedStatement.setString(1, ISBN);
 					ResultSet result = preparedStatement.executeQuery();
-					while (result.next()) {
+					while(result.next()) {
 						PassValues.setTitle(result.getString("title"));
 						PassValues.setPublisher(result.getString("publisher_name"));
 						Date date = result.getDate("publication_year");
@@ -541,9 +529,8 @@ public class DBConnector {
 						PassValues.setCategory(result.getString("category"));
 						PassValues.setSellingPrice(result.getDouble("selling_price"));
 						PassValues.setAvailableCopies(result.getInt("available_copies"));
-						PassValues.setISBN(result.getString("ISBN_number"));
 					}
-					// get book authors by ISBN
+					//get book authors by ISBN
 					String authorsQuery = "select * from Book_Authors where ISBN_number=?";
 					preparedStatement = connection.prepareStatement(authorsQuery);
 					preparedStatement.setString(1, ISBN);
@@ -606,7 +593,7 @@ public class DBConnector {
 				ResultSet result = preparedStatement.executeQuery();
 				while (result.next()) {
 					String ISBN = result.getString("ISBN_number");
-					// get book authors by ISBN
+					//get book authors by ISBN
 					String authorsQuery = "select * from Book_Authors where ISBN_number=?";
 					preparedStatement = connection.prepareStatement(authorsQuery);
 					preparedStatement.setString(1, ISBN);
@@ -624,14 +611,13 @@ public class DBConnector {
 					PassValues.setCategory(result.getString("category"));
 					PassValues.setSellingPrice(result.getDouble("selling_price"));
 					PassValues.setAvailableCopies(result.getInt("available_copies"));
-					PassValues.setISBN(result.getString("ISBN_number"));
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				printSQLException(e);
 			}
 		}
-
+		
 	}
 
 	public void checkOut(List<String> ISBN) {
@@ -647,7 +633,7 @@ public class DBConnector {
 				preparedStatement.setString(1, s);
 				preparedStatement.executeUpdate();
 				CallableStatement callableStatement = connection.prepareCall(addToSalesProcedureCall);
-				callableStatement.setString(1, PassValues.getUserName());
+				callableStatement.setString(1, username);
 				callableStatement.setString(2, s);
 				callableStatement.executeQuery();
 			}
@@ -690,6 +676,6 @@ public class DBConnector {
 	}
 
 	public String getcurrentusername() {
-		return PassValues.getUserName();
+		return username;
 	}
 }

@@ -117,15 +117,6 @@ public class SearchBy extends Pane {
 	}
 
 	@FXML
-	void categoryCheckAction(ActionEvent event) {
-		if (!Category.getSelectionModel().isEmpty()) {
-			OK.setDisable(false);
-		} else {
-			OK.setDisable(true);
-		}
-	}
-
-	@FXML
 	private void initialize() {
 		Category.setItems(FXCollections.observableArrayList("Science", "Art", "Religion", "History", "Geography"));
 		OK.setDisable(true);
