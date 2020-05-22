@@ -18,6 +18,7 @@ public class AddBookD extends Pane {
 	Manager man;
 	private Pane root;
 	private static List<String> dataToModify = new ArrayList<String>();
+
 	public AddBookD(Manager m) {
 		man = m;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBookD.fxml"));
@@ -47,7 +48,7 @@ public class AddBookD extends Pane {
 
 	@FXML
 	private TextField authers;
-	
+
 	@FXML
 	TextField copies;
 	/// add label of copies and set not visable
@@ -88,8 +89,8 @@ public class AddBookD extends Pane {
 
 	@FXML
 	private Text error;
-	
-	private String currentISBN = null, ctitle, cpname, cpyear, ccat, cthr, cprice,cOQ , cauthors;
+
+	private String currentISBN = null, ctitle, cpname, cpyear, ccat, cthr, cprice, cOQ, cauthors;
 
 	@FXML
 	void closedialog(ActionEvent event) {
@@ -102,18 +103,28 @@ public class AddBookD extends Pane {
 		/// check if all are entered first if not show error msg.
 		if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
 				|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
-				|| thershold.getText().isEmpty() || copies.getText().isEmpty()|| orderQ.getText().isEmpty()|| authers.getText().isEmpty()) {
+				|| thershold.getText().isEmpty() || copies.getText().isEmpty() || orderQ.getText().isEmpty()
+				|| authers.getText().isEmpty()) {
 			/// error please enter missed data
 			error.setText("ERROR: Please enter missed data");
 			return;
-		} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText()) || !isNumeric(copies.getText())){
-			/// error please enter numerical values for threshold, price, copies and order quantity.
+		} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText())
+				|| !isNumeric(copies.getText())) {
+			/// error please enter numerical values for threshold, price, copies and order
+			/// quantity.
 			error.setText("ERROR: Please enter numerical values for threshold, price, copies and order quantity.");
-		} 
-		if (!db.bookexist(isbn.getText())) {
-			db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-					price.getText(), thershold.getText(),copies.getText(),orderQ.getText(), authers.getText());
 		}
+		if (db.publisherExists(pname.getText())) {
+			if (!db.bookexist(isbn.getText())) {
+				db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
+						price.getText(), thershold.getText(), copies.getText(), orderQ.getText(), authers.getText());
+			} else {
+				error.setText("ERROR: There is a book with this ISBN!");
+			}
+		} else {
+			error.setText("ERROR: There is no publisher with that name please add him first");
+		}
+
 	}
 
 	@FXML
@@ -154,6 +165,7 @@ public class AddBookD extends Pane {
 
 	@FXML
 	void modifydata(ActionEvent event) {
+		DBConnector db = DBConnector.getInstance();
 		if (currentISBN == null) {
 			/// error please enter isbn and get data first
 			error.setText("ERROR: Please enter the ISBN and click on get data first");
@@ -161,15 +173,16 @@ public class AddBookD extends Pane {
 		} else {
 			if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
 					|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
-					|| thershold.getText().isEmpty() || orderQ.getText().isEmpty()|| authers.getText().isEmpty()) {
+					|| thershold.getText().isEmpty() || orderQ.getText().isEmpty() || authers.getText().isEmpty()) {
 				/// error please enter missed data
 				error.setText("ERROR: Please enter missed data");
 				return;
-			} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText())){
+			} else if (!isNumeric(price.getText()) || !isNumeric(orderQ.getText()) || !isNumeric(thershold.getText())) {
 				/// error please enter numerical values for threshold, price and order quantity.
 				error.setText("ERROR: Please enter numerical values for threshold, price and order quantity.");
+			} else if (!db.publisherExists(pname.getText())) {
+				error.setText("ERROR: There is no publisher with that name please add him first");
 			} else {
-				DBConnector db = DBConnector.getInstance();
 				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
 						price.getText(), thershold.getText(), orderQ.getText(), authers.getText());
 			}
