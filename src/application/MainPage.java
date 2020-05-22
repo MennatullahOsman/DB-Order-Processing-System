@@ -29,6 +29,10 @@ public class MainPage {
 
 	@FXML
 	private Button CheckOut;
+
+	@FXML
+	private Button ManageData;
+
 	@FXML
 	Pane ParentPane;
 	@FXML
@@ -89,12 +93,18 @@ public class MainPage {
 	}
 
 	public void showStage() {
+		if (PassValues.getprivilage().equals("manager")) {
+			ManageData.setVisible(true);
+		} else {
+			ManageData.setVisible(false);
+		}
 		thisStage.showAndWait();
 	}
 
 	@FXML
 	public void initialize() {
 		userName.setText("Hi, " + PassValues.getUserName());
+
 	}
 
 }

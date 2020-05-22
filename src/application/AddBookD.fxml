@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,37 +12,44 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="372.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="458.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="50.0" layoutY="23.0" prefHeight="342.0" prefWidth="630.0">
+      <GridPane layoutX="7.0" layoutY="21.0" prefHeight="430.0" prefWidth="714.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="89.4" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="164.6" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="27.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="101.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="185.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="164.6" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="102.59999999999997" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="133.8" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.39998779296877" minWidth="10.0" prefWidth="203.19997558593752" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="42.60001220703123" minHeight="10.0" prefHeight="42.60001220703123" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="53.80002441406248" minHeight="10.0" prefHeight="44.19998779296873" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="ISBN :" />
-            <Label text="Cateory :" GridPane.rowIndex="2" />
-            <Label text="Title :" GridPane.rowIndex="1" />
-            <Label text="Price :" GridPane.rowIndex="3" />
-            <Label text="Publisher name :" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label text="Publishing year :" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Label text="Thershold :" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="Authors :" GridPane.rowIndex="5" />
+            <Label fx:id="CategoryLabel" text="Cateory :" visible="false" GridPane.rowIndex="4" />
+            <Label fx:id="TitleLabel" text="Title :" visible="false" GridPane.rowIndex="2" />
+            <Label fx:id="PriceLabel" text="Price :" visible="false" GridPane.rowIndex="6" />
+            <Label fx:id="PublisherLabel" text="Publisher name :" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label fx:id="PublicationYearLabel" text="Publishing year :" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label fx:id="ThersholdLabel" text="Thershold :" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label fx:id="AuthorsLabel" text="Authors :" visible="false" GridPane.rowIndex="10" />
             <TextField fx:id="isbn" GridPane.columnIndex="1" />
-            <TextField fx:id="category" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="category" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <contextMenu>
                   <ContextMenu>
                     <items>
@@ -54,22 +62,23 @@
                   </ContextMenu>
                </contextMenu>
             </TextField>
-            <TextField fx:id="price" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="authers" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
-            <TextField fx:id="pname" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <TextField fx:id="pyear" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField fx:id="thershold" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <TextField fx:id="title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="   separet between authors with comma ','" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <Button fx:id="cancel" mnemonicParsing="false" onAction="#closedialog" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Button fx:id="add" mnemonicParsing="false" onAction="#addnew" text="ADD" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button fx:id="getdata" mnemonicParsing="false" onAction="#getdata" text="Get Data" GridPane.columnIndex="3" />
-            <Button fx:id="modify" mnemonicParsing="false" onAction="#modifydata" text="Modify" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-            <Label text="Copies Number :" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Label text="Order Quantity :" GridPane.rowIndex="4" />
-            <TextField fx:id="copies" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <TextField fx:id="orderQ" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Text fx:id="error" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+            <TextField fx:id="price" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="pname" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="pyear" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <TextField fx:id="thershold" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <TextField fx:id="title" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Text fx:id="notification" fill="#1f0fcf" strokeType="OUTSIDE" strokeWidth="0.0" text="                 write every Auther in a single line." visible="false" wrappingWidth="308.3765869140625" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#closedialog" text="Cancel" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <Button fx:id="add" mnemonicParsing="false" onAction="#addnew" text="ADD" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+            <Button fx:id="getdata" mnemonicParsing="false" onAction="#getdata" text="Get Data" visible="false" GridPane.columnIndex="3" />
+            <Button fx:id="modify" mnemonicParsing="false" onAction="#modifydata" text="Modify" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="13" />
+            <Label fx:id="CpiesLabel" text="Copies Number :" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Label fx:id="QuantityLabel" text="Order Quantity :" visible="false" GridPane.rowIndex="8" />
+            <TextField fx:id="copies" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+            <TextField fx:id="orderQ" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Text fx:id="error" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="14" />
+            <TextArea fx:id="Authers" prefHeight="82.0" prefWidth="287.0" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2" />
+            <Label fx:id="ISBNLabel" prefHeight="34.0" prefWidth="174.0" visible="false" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

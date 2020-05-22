@@ -34,7 +34,7 @@
             <TextField fx:id="SellingPrice" onKeyReleased="#priceCheckAction" prefHeight="40.0" promptText="Selling price" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Text fx:id="SellingPriceError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="error: please enter number" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Text fx:id="PublicationYearError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="error: please enter number" visible="false" wrappingWidth="219.93670654296875" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ComboBox fx:id="Category" prefHeight="31.0" prefWidth="447.0" promptText="Category" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ComboBox fx:id="Category" onAction="#categoryCheckAction" prefHeight="31.0" prefWidth="447.0" promptText="Category" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Button fx:id="OK" mnemonicParsing="false" onAction="#okAction" prefHeight="34.0" prefWidth="117.0" text="OK" GridPane.columnIndex="2" GridPane.rowIndex="12" />
             <TextField fx:id="Auther" onKeyReleased="#hasvalueAction" prefHeight="33.0" prefWidth="447.0" promptText="Auther" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
