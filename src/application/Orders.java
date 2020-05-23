@@ -21,7 +21,7 @@ public class Orders extends Pane {
 
 	Manager man;
 	private Pane root;
-	private static int counter = 0;
+	private static int counter;
 	private static List<Integer> ID_Order;
 	private static List<String> Date;
 	private static List<Integer> Quantity;
@@ -37,7 +37,6 @@ public class Orders extends Pane {
 			throw new RuntimeException(exception);
 		}
 		man.mangpane.getChildren().add(root);
-		viewOrders(0);
 	}
 
 	@FXML
@@ -87,7 +86,14 @@ public class Orders extends Pane {
 		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(IDBtn);
 		if (m.find()) {
-
+			int index = counter + Integer.parseInt(m.group(2));
+			DBConnector db = new DBConnector();
+			db.confirmOrder(ID_Order.get(index));
+			PassValues.setOrderQuantity(index, false);
+			PassValues.setOrderDate(null, index, false);
+			PassValues.setOrderID(index, false);
+			PassValues.setOrderISBN(ISBN.get(index), false);
+			initialize();
 		}
 	}
 
@@ -96,7 +102,7 @@ public class Orders extends Pane {
 		counter += 10;
 		Next.setDisable(true);
 		viewOrders(counter);
-		if (counter - ISBN.size() < 10) {
+		if (ISBN.size() - counter < 0) {
 			Next.setDisable(true);
 		}
 		Previous.setDisable(false);
@@ -110,6 +116,7 @@ public class Orders extends Pane {
 		if (counter < 10) {
 			Previous.setDisable(true);
 		}
+		Next.setDisable(false);
 	}
 
 	int RowViewer0(int counter) {
@@ -316,6 +323,9 @@ public class Orders extends Pane {
 			isbnerrormsg.setVisible(false);
 		}
 		db.addorder(isbn.getText(), quantity.getText());
+		db.getAllOrders();
+		initialize();
+
 	}
 
 	private static boolean isNumeric(String str) {
@@ -336,5 +346,7 @@ public class Orders extends Pane {
 
 		Next.setDisable(true);
 		Previous.setDisable(true);
+		counter = 0;
+		viewOrders(0);
 	}
 }

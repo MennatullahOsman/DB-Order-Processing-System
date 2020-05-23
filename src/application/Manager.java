@@ -52,6 +52,8 @@ public class Manager extends Pane {
 		if (!mangpane.getChildren().isEmpty()) {
 			mangpane.getChildren().remove(0);
 		}
+		DBConnector db = new DBConnector();
+		db.getAllOrders();
 		Orders frame = new Orders(this);
 	}
 

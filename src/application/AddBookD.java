@@ -5,10 +5,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
@@ -66,7 +68,7 @@ public class AddBookD extends Pane {
 	private TextField isbn;
 
 	@FXML
-	private TextField category;
+	private ComboBox<String> category;
 
 	@FXML
 	private MenuItem sc;
@@ -143,7 +145,7 @@ public class AddBookD extends Pane {
 		DBConnector db = DBConnector.getInstance();
 		/// check if all are entered first if not show error msg.
 		if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
-				|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
+				|| pyear.getText().isEmpty() || category.getSelectionModel().isEmpty() || price.getText().isEmpty()
 				|| thershold.getText().isEmpty() || copies.getText().isEmpty() || orderQ.getText().isEmpty()
 				|| Authers.getText().isEmpty()) {
 			/// error please enter missed data
@@ -161,8 +163,9 @@ public class AddBookD extends Pane {
 		}
 		if (db.publisherExists(pname.getText())) {
 			if (!db.bookexist(isbn.getText())) {
-				db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-						price.getText(), thershold.getText(), copies.getText(), orderQ.getText(), authers);
+				db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(),
+						category.getSelectionModel().toString(), price.getText(), thershold.getText(), copies.getText(),
+						orderQ.getText(), authers);
 			} else {
 				error.setText("ERROR: There is a book with this ISBN!");
 			}
@@ -190,11 +193,11 @@ public class AddBookD extends Pane {
 				pname.setText(dataToModify.get(1));
 				pyear.setText(dataToModify.get(2));
 				price.setText(dataToModify.get(3));
-				category.setText(dataToModify.get(4));
+				category.setValue(dataToModify.get(4));
 				copies.setText(dataToModify.get(7));
 				thershold.setText(dataToModify.get(5));
 				orderQ.setText(dataToModify.get(6));
-				Authers.setText(dataToModify.get(8));
+				Authers.setText(dataToModify.get(8).replace(',', '\n'));
 				currentISBN = isbn.getText();
 			} else {
 				/// error this book not found
@@ -212,7 +215,7 @@ public class AddBookD extends Pane {
 			return;
 		} else {
 			if (isbn.getText().isEmpty() || title.getText().isEmpty() || pname.getText().isEmpty()
-					|| pyear.getText().isEmpty() || category.getText().isEmpty() || price.getText().isEmpty()
+					|| pyear.getText().isEmpty() || category.getSelectionModel().isEmpty() || price.getText().isEmpty()
 					|| thershold.getText().isEmpty() || orderQ.getText().isEmpty() || Authers.getText().isEmpty()) {
 				/// error please enter missed data
 				error.setText("ERROR: Please enter missed data");
@@ -227,8 +230,9 @@ public class AddBookD extends Pane {
 				for (String line : Authers.getText().split("\\n")) {
 					authers.add(line);
 				}
-				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(), category.getText(),
-						price.getText(), thershold.getText(), orderQ.getText(), authers);
+				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(),
+						category.getSelectionModel().toString(), price.getText(), thershold.getText(), orderQ.getText(),
+						authers);
 			}
 		}
 	}
@@ -263,5 +267,10 @@ public class AddBookD extends Pane {
 		} catch (NumberFormatException e) {
 			return false;
 		}
+	}
+
+	@FXML
+	private void initialize() {
+		category.setItems(FXCollections.observableArrayList("Science", "Art", "Religion", "History", "Geography"));
 	}
 }

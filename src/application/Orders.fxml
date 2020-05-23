@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="516.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="516.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="35.0" layoutY="83.0" text="Current Orders :">
          <font>
@@ -44,7 +44,7 @@
             <Text fx:id="quantityerrormsg" fill="#e80a0a" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the Quantity that store needs" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <VBox layoutX="-1.0" layoutY="119.0" prefHeight="359.0" prefWidth="800.0">
+      <VBox layoutX="-1.0" layoutY="119.0" prefHeight="359.0" prefWidth="722.0">
          <children>
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid0" prefHeight="30.0" prefWidth="800.0" visible="false">
@@ -67,7 +67,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line0" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line0" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid1" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -89,7 +89,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line1" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line1" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid2" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -111,7 +111,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line2" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line2" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid3" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -133,7 +133,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line3" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line3" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid4" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -155,7 +155,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="738.0" />
-            <Line fx:id="Line4" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line4" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid5" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -177,7 +177,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line5" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line5" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid6" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -199,7 +199,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line6" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line6" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid7" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -221,7 +221,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line7" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line7" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid8" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -243,7 +243,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line8" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line8" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
             <Pane prefHeight="20.0" prefWidth="655.0" />
             <GridPane fx:id="Grid9" prefHeight="30.0" prefWidth="800.0" visible="false">
                <columnConstraints>
@@ -265,7 +265,7 @@
                </children>
             </GridPane>
             <Pane prefHeight="20.0" prefWidth="655.0" />
-            <Line fx:id="Line9" endX="610.0" startX="-100.0" stroke="#c7baba" visible="false" />
+            <Line fx:id="Line9" endX="620.0" startX="-100.0" stroke="#c7baba" visible="false" />
          </children>
       </VBox>
       <Button fx:id="Previous" layoutX="235.0" layoutY="489.0" mnemonicParsing="false" onAction="#previousAction" prefHeight="26.0" prefWidth="87.0" text="Prevoius" />

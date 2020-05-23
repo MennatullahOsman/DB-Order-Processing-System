@@ -330,8 +330,11 @@ public class DBConnector {
 				authors.add(result.getString("Author"));
 			}
 			String listString = "";
-			for (String s : authors) {
-				listString += s + ",";
+			for (int i = 0; i < authors.size(); i++) {
+				listString += authors.get(i);
+				if (i < authors.size() - 1) {
+					listString += ",";
+				}
 			}
 			dataToModify.add(listString);
 			PassValues.setDataToModify(dataToModify);
@@ -409,6 +412,7 @@ public class DBConnector {
 	}
 
 	public void getAllOrders() {
+		PassValues.clearAllOrder();
 		try {
 			if (connection == null) {
 				connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -417,10 +421,10 @@ public class DBConnector {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
-				PassValues.setOrderID(result.getInt("id"));
-				PassValues.setOrderISBN(result.getString("ISBN_number"));
-				PassValues.setOrderDate(result.getTimestamp("order_date")); // YYYY-MM-DD HH:MM:SS
-				PassValues.setOrderQuantity(result.getInt("quantity"));
+				PassValues.setOrderID(result.getInt("id"), true);
+				PassValues.setOrderISBN(result.getString("ISBN_number"), true);
+				PassValues.setOrderDate(result.getTimestamp("order_date"), 0, true); // YYYY-MM-DD HH:MM:SS
+				PassValues.setOrderQuantity(result.getInt("quantity"), true);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

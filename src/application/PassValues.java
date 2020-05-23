@@ -225,8 +225,12 @@ public class PassValues {
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static void setOrderID(int orderId_set) {
-		orderId.add(orderId_set);
+	public static void setOrderID(int orderId_set, Boolean confirm) {
+		if (confirm) {
+			orderId.add(orderId_set);
+		} else {
+			orderId.remove(orderId_set);
+		}
 
 	}
 
@@ -234,31 +238,49 @@ public class PassValues {
 		return orderId;
 	}
 
-	public static void setOrderISBN(String orderISBN_set) {
-		orderISBN.add(orderISBN_set);
+	public static void setOrderISBN(String orderISBN_set, Boolean confirm) {
+		if (confirm) {
+			orderISBN.add(orderISBN_set);
+		} else {
+			orderISBN.remove(orderISBN_set);
+		}
 	}
 
 	public static List<String> getOrderISBN() {
 		return orderISBN;
 	}
 
-	public static void setOrderDate(Timestamp orderDate_set) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		String string = dateFormat.format(orderDate_set);
-		orderDate.add(string);
-
+	public static void setOrderDate(Timestamp orderDate_set, int index, Boolean confirm) {
+		if (confirm) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String string = dateFormat.format(orderDate_set);
+			orderDate.add(string);
+		} else {
+			orderDate.remove(index);
+		}
 	}
 
 	public static List<String> getOrderDate() {
 		return orderDate;
 	}
 
-	public static void setOrderQuantity(int orderQuantity_set) {
-		orderQuantity.add(orderQuantity_set);
+	public static void setOrderQuantity(int orderQuantity_set, Boolean confirm) {
+		if (confirm) {
+			orderQuantity.add(orderQuantity_set);
+		} else {
+			orderQuantity.remove(orderQuantity_set);
+		}
 	}
 
 	public static List<Integer> getOrderQuantity() {
 		return orderQuantity;
+	}
+
+	public static void clearAllOrder() {
+		orderId.clear();
+		orderDate.clear();
+		orderQuantity.clear();
+		orderISBN.clear();
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
