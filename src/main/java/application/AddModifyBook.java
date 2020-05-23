@@ -165,8 +165,8 @@ public class AddModifyBook extends Pane {
 		if (db.publisherExists(pname.getText())) {
 			if (!db.bookexist(isbn.getText())) {
 				db.addBook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(),
-						category.getSelectionModel().toString(), price.getText(), thershold.getText(), copies.getText(),
-						orderQ.getText(), authers);
+						category.getSelectionModel().getSelectedItem().toString(), price.getText(), thershold.getText(),
+						copies.getText(), orderQ.getText(), authers);
 			} else {
 				error.setText("ERROR: There is a book with this ISBN!");
 			}
@@ -232,8 +232,8 @@ public class AddModifyBook extends Pane {
 					authers.add(line);
 				}
 				db.modifybook(isbn.getText(), title.getText(), pname.getText(), pyear.getText(),
-						category.getSelectionModel().toString(), price.getText(), thershold.getText(), orderQ.getText(),
-						authers);
+						category.getSelectionModel().getSelectedItem().toString(), price.getText(), thershold.getText(),
+						orderQ.getText(), authers);
 			}
 		}
 	}
