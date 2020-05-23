@@ -548,7 +548,7 @@ public class DBConnector {
 			if (!publisher.equals("")) {
 				if (!first)
 					query += " and ";
-				query += "publisher_name like %'" + publisher + "%'";
+				query += "publisher_name like '%" + publisher + "%'";
 				first = false;
 			}
 			if (!category.equals("")) {
@@ -576,6 +576,7 @@ public class DBConnector {
 				query += "Author like '%" + auther + "%'";
 			}
 			try {
+				System.out.println(query);
 				if (connection == null) {
 					connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 				}
