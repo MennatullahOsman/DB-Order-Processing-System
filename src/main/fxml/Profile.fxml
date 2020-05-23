@@ -71,7 +71,7 @@
             <Label text="New Password : " />
             <PasswordField fx:id="newpassword" GridPane.columnIndex="1" />
             <Button fx:id="newpass" mnemonicParsing="false" onAction="#changepass" prefHeight="26.0" prefWidth="181.0" text="Save New Password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Text fx:id="errorpass" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="1.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Text fx:id="errorpass" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="447.40000915527344" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Label layoutX="40.0" layoutY="359.0" text="Change Password">

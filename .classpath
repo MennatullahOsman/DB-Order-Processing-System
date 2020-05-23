@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/fxml"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="mysql-connector-java-5.1.48-bin.jar"/>
 	<classpathentry kind="lib" path="jars/bcprov-jdk15on-1.62.jar"/>
 	<classpathentry kind="lib" path="jars/castor-core-1.4.1.jar"/>
 	<classpathentry kind="lib" path="jars/castor-xml-1.4.1.jar"/>
@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="jars/javax.inject-1.jar"/>
 	<classpathentry kind="lib" path="jars/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="jars/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="jars/mysql-connector-java-5.1.48-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

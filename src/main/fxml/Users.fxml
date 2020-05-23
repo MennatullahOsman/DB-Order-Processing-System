@@ -14,6 +14,6 @@
       <TextArea fx:id="userdata" layoutX="84.0" layoutY="86.0" prefHeight="192.0" prefWidth="531.0" />
       <Button layoutX="465.0" layoutY="22.0" mnemonicParsing="false" onAction="#getdata" text="Get User Data" />
       <Button layoutX="331.0" layoutY="313.0" mnemonicParsing="false" onAction="#promot" text="Promot" />
-      <Text fx:id="errormsg" fill="#eb0707" layoutX="112.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" />
+      <Text fx:id="errormsg" fill="#eb0707" layoutX="112.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false" />
    </children>
 </AnchorPane>
