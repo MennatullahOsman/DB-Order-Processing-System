@@ -18,8 +18,8 @@
             <Insets bottom="40" left="40" right="40" top="40" />
          </padding>
          <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="198.0" prefWidth="438.20000000000005" />
+            <ColumnConstraints maxWidth="115.60001220703126" minWidth="100.4" prefWidth="115.60001220703126" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="198.0" prefWidth="402.1999877929687" />
             <ColumnConstraints halignment="RIGHT" maxWidth="Infinity" minWidth="100.0" prefWidth="129.39999999999998" />
          </columnConstraints>
          <children>
@@ -28,7 +28,7 @@
             <Label text="Auther" GridPane.rowIndex="2" />
             <Label text="Publisher" GridPane.rowIndex="4" />
             <TextField fx:id="Publisher" onKeyReleased="#hasvalueAction" prefHeight="40" promptText="Publisher" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label prefHeight="17.0" prefWidth="88.0" text="Publication year" GridPane.rowIndex="6" />
+            <Label prefHeight="18.0" prefWidth="106.0" text="Publication year" GridPane.rowIndex="6" />
             <TextField fx:id="PublicationYear" onKeyReleased="#publicationYearCheckAction" prefHeight="40.0" promptText="publication year" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label prefHeight="17.0" prefWidth="106.0" text="Selling price" GridPane.rowIndex="8" />
             <TextField fx:id="SellingPrice" onKeyReleased="#priceCheckAction" prefHeight="40.0" promptText="Selling price" GridPane.columnIndex="1" GridPane.rowIndex="8" />
