@@ -576,7 +576,6 @@ public class DBConnector {
 				query += "Author like '%" + auther + "%'";
 			}
 			try {
-				System.out.println(query);
 				if (connection == null) {
 					connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 				}
